@@ -5,28 +5,26 @@ import java.util.Random;
 
 public class UserManager {
 	private Random ran = new Random();
-	private ArrayList<User> users = new ArrayList<User>();
+	public static ArrayList<User> users = new ArrayList<User>();
 	
 	public void userSetting(String name, String id, String pw) {
-		int tempCode = makeCode();
+		User tempUser = new User(makeCode(), id, pw, name);
 		
-		User tempUser = new User(tempCode, id, pw, name);
-		
-		this.users.add(tempUser);
+		UserManager.users.add(tempUser);
 	}
 	
 	public boolean userCheck(String id, String pw) {
-		for(int i=0; i<this.users.size(); i++) {
-			if(id.equals(this.users.get(i).getId()) && pw.equals(this.users.get(i).getPw()))
+		for(int i=0; i<UserManager.users.size(); i++) {
+			if(id.equals(UserManager.users.get(i).getId()) && pw.equals(UserManager.users.get(i).getPw()))
 				return true;
 		}
 		return false;
 	}
 	
 	public void remove(String id, String pw) {
-		for(int i=0; i<this.users.size(); i++) {
-			if(id.equals(this.users.get(i).getId()) && pw.equals(this.users.get(i).getPw())) {
-				this.users.remove(i);
+		for(int i=0; i<UserManager.users.size(); i++) {
+			if(id.equals(UserManager.users.get(i).getId()) && pw.equals(UserManager.users.get(i).getPw())) {
+				UserManager.users.remove(i);
 			}
 				
 		}
@@ -37,8 +35,8 @@ public class UserManager {
 			int ranCode = ran.nextInt(8999)+1000;
 			
 			int idx = -1;
-			for(int i=0; i<this.users.size(); i++) {
-				int tempCode = this.users.get(i).getCode();
+			for(int i=0; i<UserManager.users.size(); i++) {
+				int tempCode = UserManager.users.get(i).getCode();
 				
 				if(ranCode == tempCode) {
 					idx = i;
@@ -52,12 +50,29 @@ public class UserManager {
 	}
 	
 	public boolean idDupl(String id) {
-		for(int i=0; i<this.users.size(); i++) {
-			String tempId = this.users.get(i).getId();
-			
-			if(tempId == id)
+		for(int i=0; i<UserManager.users.size(); i++) {
+			String tempId = UserManager.users.get(i).getId();
+			if(tempId.equals(id)) {
 				return false;
+			}
 		}
 		return true;
 	}
+	
+	public int idLog(String id, String pw) {
+		for(int i=0; i<UserManager.users.size(); i++) {
+			if(id.equals(UserManager.users.get(i).getId()) && pw.equals(UserManager.users.get(i).getPw())) {
+				return i;
+			}
+		}
+		return 0;
+	}
+	
+	public boolean checkCnt(int log) {
+		if(users.get(log).getAccCnt() < 3) {
+			return true;
+		}
+		return false;
+	}
+	
 }
