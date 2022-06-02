@@ -7,8 +7,6 @@ public class User {
 	private String id, pw;
 	private String name;
 	
-	private ArrayList<Account> accs;
-	
 	public User(int code, String id, String pw, String name) {
 		this.code = code;
 		this.id = id;
