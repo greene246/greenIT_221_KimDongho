@@ -1,7 +1,5 @@
 package atm;
 
-import java.util.ArrayList;
-
 public class User {
 	private int code, accCnt;
 	private String id, pw;

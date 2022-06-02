@@ -1,5 +1,11 @@
 package atm;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Bank {
@@ -8,6 +14,9 @@ public class Bank {
 	private String name = "";
 	private UserManager um = new UserManager();
 	private AccountManager am = new AccountManager();
+	private String filename = "banklist";
+	File file = new File(filename);
+
 	
 	private Bank() {
 		
@@ -19,6 +28,8 @@ public class Bank {
 		System.out.println("2. 회원탈퇴");
 		System.out.println("3. 계좌개설");
 		System.out.println("4. 계좌해지");
+		System.out.println("5. 저장");
+		System.out.println("6. 불러오기");
 		System.out.print("메뉴 선택 : ");
 		int sel = sc.nextInt();
 		
@@ -30,6 +41,8 @@ public class Bank {
 		else if(sel == 2) removeUser();
 		else if(sel == 3) makeAcc();
 		else if(sel == 4) removeAcc();
+		else if(sel == 5) save();
+		else if(sel == 6) load();
 	}
 	
 	public void join() {
@@ -99,6 +112,84 @@ public class Bank {
 				System.out.println("해당계좌가 해지되었습니다.");
 			}
 			else System.out.println("계좌번호를 다시 확인해주십시오.");
+		}
+	}
+	
+	public void save() {
+
+		
+		try {
+			FileWriter fw = new FileWriter(this.file);
+			
+			String data = "";
+			for (int i = 0; i < UserManager.users.size(); i++) {
+				data += UserManager.users.get(i).getCode() + ",";
+				data += UserManager.users.get(i).getId() + ",";
+				data += UserManager.users.get(i).getPw() + ",";
+				data += UserManager.users.get(i).getName() + ",";
+				data += UserManager.users.get(i).getAccCnt();
+
+				for (int j = 0; j < AccountManager.accs.size(); j++) {
+					data += "/" + AccountManager.accs.get(j).getAccNum() + ",";
+					data += AccountManager.accs.get(j).getMoney();
+				}
+				if (i < UserManager.users.size() - 1)
+					data += "\n";
+			}
+			fw.write(data);
+			fw.close();
+			System.out.println("SAVE");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("FAIL");
+		}
+	}
+	
+	public void load() {
+		if(this.file.exists()) {
+			try {
+				FileReader fr = new FileReader(this.filename);
+				BufferedReader br = new BufferedReader(fr);
+				
+				int n = 0;
+				
+				while(true) {
+					String data = br.readLine();
+					
+					if(data == null)
+						break;
+					
+					String[] temp = data.split("/");
+					
+					String[] userInfo = temp[0].split(",");
+					
+					int tempCode = Integer.parseInt(userInfo[0]);
+					User dataUser = new User(tempCode, userInfo[1], userInfo[2], userInfo[3]);
+					dataUser.setAccCnt(Integer.parseInt(userInfo[4]));
+					
+					UserManager.users.add(dataUser);
+					
+					for(int i=1; i<temp.length; i++) {
+						String[] info = temp[i].split(",");
+						
+						int tempAccNum = Integer.parseInt(info[0]);
+						int tempMoney = Integer.parseInt(info[1]);
+						
+						Account dataAcc = new Account(tempCode, tempAccNum, tempMoney);
+						AccountManager.accs.add(dataAcc);
+					}
+				}
+				fr.close();
+				br.close();
+				System.out.println("LOAD");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
