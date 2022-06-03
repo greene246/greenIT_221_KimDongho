@@ -17,11 +17,6 @@ public class Bank {
 	private String filename = "banklist";
 	File file = new File(filename);
 
-	
-	private Bank() {
-		
-	}
-	
 	public void print() {
 		System.out.println("----- " + this.name + " ATM -----");
 		System.out.println("1. 회원가입");
@@ -184,10 +179,8 @@ public class Bank {
 				br.close();
 				System.out.println("LOAD");
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
