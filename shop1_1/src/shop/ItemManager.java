@@ -4,15 +4,15 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class ItemManager {
-	Scanner scan = new Scanner(System.in);
-	Vector<String> category = new Vector<String>();
-	Vector<Item> itemList = new Vector<Item>(); // 전체 아이템리스트
-	Vector<Cart> jangList = new Vector<Cart>(); // 전체 장바구니
-	int n = 0;
-	ItemManager() {
+	private Scanner scan = new Scanner(System.in);
+	public static Vector<String> category = new Vector<String>();
+	public static Vector<Item> itemList = new Vector<Item>(); // 전체 아이템리스트
+	public static Vector<Cart> jangList = new Vector<Cart>(); // 전체 장바구니
+	public static int n = 0;
+	public ItemManager() {
 		init();
 	}
-	void init() {
+	public void init() {
 		category.add("과자");
 		category.add("생선");
 		category.add("육류");
@@ -31,13 +31,13 @@ public class ItemManager {
 		itemList.add(temp);
 	}
 
-	void printJang() {
+	public void printJang() {
 		for (int i = 0; i < jangList.size(); i++) {
 			jangList.get(i).print();
 		}
 	}
 
-	void printJang(User u) {
+	public void printJang(User u) {
 		for (int i = 0; i < jangList.size(); i++) {
 			if (u.id.equals(jangList.get(i).userId)) {
 				jangList.get(i).print();
@@ -45,20 +45,20 @@ public class ItemManager {
 		}
 	}
 
-	void printCategory() {
+	public void printCategory() {
 		for (int i = 0; i < category.size(); i++) {
 			System.out.println("[" + i + "] " + category.get(i));
 		}
 	}
 
-	void printItemList() {
+	public void printItemList() {
 		for (int i = 0; i < itemList.size(); i++) {
 			System.out.print("[" + i + "]");
 			itemList.get(i).print();
 		}
 	}
 
-	void printItemList(int caID) {
+	public void printItemList(int caID) {
 		n = 0;
 		for (int i = 0; i < itemList.size(); i++) {
 			if (category.get(caID).equals(itemList.get(i).category)) {
@@ -69,7 +69,7 @@ public class ItemManager {
 		}
 	}
 
-	void addItem() {
+	public void addItem() {
 		System.out.println("[아이템추가] 아이템이름을 입력하세요.");
 		String name = scan.next();
 		System.out.println("[아이템추가] 가격을 입력하세요. ");
@@ -81,7 +81,7 @@ public class ItemManager {
 		itemList.add(temp);
 	}
 	
-	void removeItem() {
+	public void removeItem() {
 		printItemList();
 		System.out.println("[아이템삭제] 아이템이름을 입력하세요.");
 		String name = scan.next();
@@ -96,7 +96,7 @@ public class ItemManager {
 		
 	}
 	
-	int findName(String name) {
+	public int findName(String name) {
 		for(int i=0; i<itemList.size(); i++) {
 			if(name.equals(itemList.get(i).name))
 				return i;
@@ -104,7 +104,7 @@ public class ItemManager {
 		return -1;
 	}
 
-	void addCategory() {
+	public void addCategory() {
 		System.out.println("[카테고리추가] 카테고리 이름을 입력하세요. ");
 		String name = scan.next();
 		
@@ -114,7 +114,7 @@ public class ItemManager {
 		else category.add(name);
 	}
 	
-	int categoryDupl(String name) {
+	public int categoryDupl(String name) {
 		for(int i=0; i<category.size(); i++) {
 			if(name.equals(category.get(i))) {
 				return i;
@@ -123,7 +123,7 @@ public class ItemManager {
 		return -1;
 	}
 	
-	void removeCategory() {
+	public void removeCategory() {
 		printCategory();
 		System.out.println("[카테고리삭제] 카테고리 이름을 입력하세요. ");
 		String name = scan.next();
@@ -137,7 +137,7 @@ public class ItemManager {
 		else System.out.println("[메세지] 없는 카테고리입니다.");
 	}
 	
-	int findCategory(String name) {
+	public int findCategory(String name) {
 		for(int i=0; i<category.size(); i++) {
 			if(name.equals(category.get(i)))
 				return i;
@@ -145,7 +145,7 @@ public class ItemManager {
 		return -1;
 	}
 	
-	void removeJang() {
+	public void removeJang() {
 		System.out.println("[장바구니 삭제] 장바구니를 비울 id를 입력하세요");
 		String id = scan.next();
 		
@@ -166,7 +166,7 @@ public class ItemManager {
 			
 	}
 	
-	void addCart(String usID, int caID, int itemID) {
+	public void addCart(String usID, int caID, int itemID) {
 		int n = 0;
 		Cart temp = new Cart();
 		temp.userId = usID;
@@ -181,7 +181,7 @@ public class ItemManager {
 		jangList.add(temp);
 	}
 	
-	void delMyItem() {
+	public void delMyItem() {
 		int n = 0;
 		System.out.println("[삭제] 삭제할 물품의 번호를 입력하세요.");
 		
@@ -198,7 +198,7 @@ public class ItemManager {
 		else System.out.println("범위 오류");
 	}
 	
-	void purchase(User u) {
+	public void purchase(User u) {
 		int pay = 0;
 		for(int i=0; i<jangList.size(); i++) {
 			if(u.id.equals(jangList.get(i).userId)) {

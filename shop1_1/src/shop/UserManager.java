@@ -5,16 +5,16 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class UserManager {
-	Random ran = new Random();
-	Scanner scan = new Scanner(System.in);
-	Vector<User> userList = new Vector<User>(); // 전체 유저 리스트
+	private Random ran = new Random();
+	private Scanner scan = new Scanner(System.in);
+	public static Vector<User> userList = new Vector<User>(); // 전체 유저 리스트
 	int userLog = -1;
 
 	UserManager() {
 		init();
 	}
 
-	void init() {
+	public void init() {
 		String[] a = { "김", "박", "이", "최", "정", "오" };
 		String[] b = { "철", "병", "만", "여", "아", "영" };
 		String[] c = { "수", "욱", "수", "정", "름", "희" };
@@ -30,7 +30,7 @@ public class UserManager {
 		}
 	}
 
-	void join() {
+	public void join() {
 		System.out.println("[가입] id 를 입력하세요.");
 		String id = scan.next();
 		User temp = new User(id, 0);
@@ -38,7 +38,7 @@ public class UserManager {
 		System.out.println("[메세지] " + temp.id + "님 가입을 축하합니다.");
 	}
 	
-	void joinOut() {
+	public void joinOut() {
 		System.out.println("[탈퇴] id 를 입력하세요.");
 		String id = scan.next();
 		
@@ -57,7 +57,7 @@ public class UserManager {
 		else System.out.println("[메세지] 일치하는 회원정보가 없습니다.");
 	}
 
-	boolean logIn() {
+	public boolean logIn() {
 		userLog = -1;
 		System.out.println("[로그인] id 를 입력하세요.");
 		String id = scan.next();
@@ -76,21 +76,21 @@ public class UserManager {
 		return false;
 	}
 
-	void logOut() {
+	public void logOut() {
 		if (userLog != -1) {
 			System.out.println("[메세지] " + userList.get(userLog).id + "님 로그아웃.");
 		}
 		userLog = -1;
 	}
 
-	void printUser() {
+	public void printUser() {
 		for (int i = 0; i < userList.size(); i++) {
 			System.out.print("[" + i + "] ");
 			userList.get(i).print();
 		}
 	}
 	
-	void addUser() {
+	public void addUser() {
 		System.out.println("[유저 추가] 추가할 유저 ID를 입력하세요.");
 		String id = scan.next();
 		
@@ -106,7 +106,7 @@ public class UserManager {
 		}
 	}
 	
-	void removeUser() {
+	public void removeUser() {
 		System.out.println("[유저 삭제] 삭제할 유저 ID를 입력하세요.");
 		String delId = scan.next();
 		
@@ -117,7 +117,7 @@ public class UserManager {
 		else System.out.println("존재하지 않는 유저 ID 입니다.");
 	}
 	
-	int userCheck(String delId) {
+	public int userCheck(String delId) {
 		for(int i=0; i<userList.size(); i++) {
 			if(delId.equals(userList.get(i).id)) {
 				return i;

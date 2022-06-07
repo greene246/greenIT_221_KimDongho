@@ -5,13 +5,13 @@ public class Item {
 	int price;
 	String category; // 카테고리 // 육류, 과자, 어류, 과일 등등
 
-	Item(String na, int pr, String cate) {
+	public Item(String na, int pr, String cate) {
 		name = na;
 		price = pr;
 		category = cate;
 	}
 
-	void print() {
+	public void print() {
 		System.out.println("[" + name + "]" + "[" + price + "]" + "[" + category + "]");
 	}
 }
