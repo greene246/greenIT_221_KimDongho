@@ -8,6 +8,7 @@ public class ItemManager {
 	Vector<String> category = new Vector<String>();
 	Vector<Item> itemList = new Vector<Item>(); // 전체 아이템리스트
 	Vector<Cart> jangList = new Vector<Cart>(); // 전체 장바구니
+	int n = 0;
 	ItemManager() {
 		init();
 	}
@@ -58,7 +59,7 @@ public class ItemManager {
 	}
 
 	void printItemList(int caID) {
-		int n = 0;
+		n = 0;
 		for (int i = 0; i < itemList.size(); i++) {
 			if (category.get(caID).equals(itemList.get(i).category)) {
 				System.out.print("[" + n + "]");
@@ -143,6 +144,27 @@ public class ItemManager {
 		}
 		return -1;
 	}
+	
+	void removeJang() {
+		System.out.println("[장바구니 삭제] 장바구니를 비울 id를 입력하세요");
+		String id = scan.next();
+		
+		int idx = -1;
+		for(int i=0; i<jangList.size(); i++) {
+			if(id.equals(jangList.get(i).userId)) 
+				idx = i;
+		}
+		
+		if(idx >= 0) {
+			for(int i=jangList.size()-1; i>=0; i--) {
+				if(id.equals(jangList.get(i).userId)) 
+					jangList.remove(i);
+			}
+			System.out.println("[메세지] " + id + "님의 장바구니를 비웠습니다.");
+		}
+		else System.out.println(id + "님의 장바구니는 이미 비어있습니다.");
+			
+	}
 
 	void addCart(String usID, int caID, int itemID) {
 		int n = 0;
@@ -157,5 +179,18 @@ public class ItemManager {
 			}
 		}
 		jangList.add(temp);
+	}
+	
+	void delMyItem() {
+		int n = 0;
+		System.out.println("[삭제] 삭제할 물품의 번호를 입력하세요.");
+		int sel = scan.nextInt();
+		
+		for (int i = 0; i < jangList.size(); i++) {
+			jangList.get(i).print();
+			
+		}
+		
+		
 	}
 }

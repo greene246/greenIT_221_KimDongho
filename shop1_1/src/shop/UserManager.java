@@ -89,4 +89,41 @@ public class UserManager {
 			userList.get(i).print();
 		}
 	}
+	
+	void addUser() {
+		System.out.println("[유저 추가] 추가할 유저 ID를 입력하세요.");
+		String id = scan.next();
+		
+		if(userCheck(id) == -1) {
+			System.out.println("초기 금액값을 입력하세요.");
+			int money = scan.nextInt();
+			User temp = new User(id, money);
+			userList.add(temp);
+			System.out.println("유저 '" + id + "' 가 추가되었습니다.");
+		}
+		else if(userCheck(id) >= 0) {
+			System.out.println("이미 존재하는 유저 ID 입니다.");
+		}
+	}
+	
+	void removeUser() {
+		System.out.println("[유저 삭제] 삭제할 유저 ID를 입력하세요.");
+		String delId = scan.next();
+		
+		if(userCheck(delId) >= 0) {
+			userList.remove(userCheck(delId));
+			System.out.println("유저 '" + delId + "' 가 삭제되었습니다.");
+		}
+		else System.out.println("존재하지 않는 유저 ID 입니다.");
+	}
+	
+	int userCheck(String delId) {
+		for(int i=0; i<userList.size(); i++) {
+			if(delId.equals(userList.get(i).id)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 }

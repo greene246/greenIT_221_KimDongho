@@ -52,6 +52,10 @@ public class Shop {
 			int sel = scan.nextInt();
 			if (sel == 1) {
 				im.printJang(um.userList.get(um.userLog));
+			} else if (sel == 2) {
+				im.delMyItem();
+			} else if (sel == 3) {
+				break;
 			} else if (sel == 0) {
 				break;
 			}
@@ -66,10 +70,16 @@ public class Shop {
 			int caID = scan.nextInt();
 			if (caID == -1)
 				break;
-			System.out.println("[아이템] 번호를 입력하세요.");
-			im.printItemList(caID);
-			int itID = scan.nextInt();
-			im.addCart(um.userList.get(um.userLog).id, caID, itID);
+			if(caID < im.category.size()) {
+				System.out.println("[아이템] 번호를 입력하세요.");
+				im.printItemList(caID);
+				int itID = scan.nextInt();
+				if(itID < im.n) {
+					im.addCart(um.userList.get(um.userLog).id, caID, itID);
+				}
+				else System.out.println("없는 아이템 번호");
+			}
+			else System.out.println("없는 카테고리 번호");
 		}
 	}
 
@@ -95,12 +105,12 @@ public class Shop {
 	void jangMenu() {
 		boolean run = true;
 		while (run) {
-			System.out.println("[1.전체 장바구니] [2.아이템 삭제] [0.뒤로가기]");
+			System.out.println("[1.전체 장바구니] [2.장바구니 삭제] [0.뒤로가기]");
 			int sel = scan.nextInt();
 			if (sel == 1) {
-				im.printCategory();
+				im.printJang();
 			} else if (sel == 2) {
-				im.addCategory();
+				im.removeJang();
 			} else if (sel == 3) {
 				im.removeCategory();
 			} else if (sel == 0) {
@@ -150,6 +160,10 @@ public class Shop {
 			int sel = scan.nextInt();
 			if (sel == 1) {
 				um.printUser();
+			} else if (sel == 2) {
+				um.addUser();
+			} else if (sel == 3) {
+				um.removeUser();
 			} else if (sel == 0) {
 				run = false;
 			}
