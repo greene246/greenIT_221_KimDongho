@@ -13,11 +13,11 @@ public class ATM {
 	
 	void menu() {
 		while(true) {
-			System.out.println("ATM");
+			System.out.println("------ATM-----");
 			System.out.println("[1] 로그인");
 			System.out.println("[2] 회원가입");
 			System.out.println("[0] 종료");
-			System.out.println("메뉴 선택 : ");
+			System.out.print("메뉴 선택 : ");
 			int selMenu = scan.nextInt();
 			
 			if(selMenu == 1) { login(); }
@@ -26,11 +26,7 @@ public class ATM {
 		}
 	}
 	
-	void join() {
-		if(log == -1) {
-			UserManager.instance.joinUser();
-		}
-	}
+	void join() { UserManager.instance.joinUser(); }
 	
 	void login() {
 		System.out.println("[로그인]");
@@ -61,6 +57,7 @@ public class ATM {
 	
 	void loginMenu() {
 		while(true) {
+			System.out.println("-----[ " +userManager.userList[log].id + " ]-----");
 			System.out.println("[1]계좌생성");
 			System.out.println("[2]계좌해지");
 			System.out.println("[3]입금");
@@ -81,8 +78,6 @@ public class ATM {
 		}
 	}
 	
-	void makeAccount() {
-		
-	}
+	void makeAccount() { userManager.instance.makeAccount(); }
 	
 }

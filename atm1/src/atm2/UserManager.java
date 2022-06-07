@@ -8,11 +8,11 @@ static UserManager instance = new UserManager();
 	
 	void joinUser() {
 		System.out.println("[가입]");
-		System.out.print("사용하실 ID :");
+		System.out.print("사용하실 ID : ");
 		String id = ATM.scan.next();
 		
 		if(idDupl(id)) {
-			System.out.print("사용하실 PW :");
+			System.out.print("사용하실 PW : ");
 			String pw = ATM.scan.next();
 			
 			if(userCount == 0) {
@@ -30,6 +30,7 @@ static UserManager instance = new UserManager();
 				}
 			}
 			userCount++;
+			System.out.println("회원가입 되었습니다.");
 		}
 		else System.out.println("중복된 ID입니다.");
 	}
@@ -48,15 +49,41 @@ static UserManager instance = new UserManager();
 		
 		if(userAccountCnt < 3) {
 			System.out.println("[계좌 생성]");
-			int ranNum = ATM.ran.nextInt(8999)+1000;
+			int yourAccCnt = loginUser.accCount;
 			
-			userList[ATM.log].accList = new Account[1];
+			if(yourAccCnt > 0) {
+				Account[] temp = loginUser.accList;
+				loginUser.accList = new Account[yourAccCnt + 1];
+				
+				for(int i=0; i<loginUser.accCount; i++) {
+					loginUser.accList[i] = temp[i]; 
+				}
+			}
 			
+			else {
+				loginUser.setAccList(new Account());
+			}
 			
+			loginUser.accList[yourAccCnt].number = makeRanNum();
+			loginUser.accList[yourAccCnt].money = 1000;
+			yourAccCnt ++;
 		}
-		else System.out.println("[더 이상 계좌를 생성할 수 없습니다.");
+		else System.out.println("[더 이상 계좌를 생성할 수 없습니다.]");
 	}
 	
-	
+	int makeRanNum() {
+		while(true) {
+			int ranNum = ATM.ran.nextInt(8999)+1000;
+			
+			int idx = -1;
+			for(int i=0; i<userList.length; i++) 
+				for(int j=0; j<userList[i].getAccCount(); j++) 
+					if(ranNum == userList[i].accList[j].number) 
+						idx = j;
+			
+			if(idx == -1) 
+				return ranNum;
+		}
+	}
 	
 }

@@ -1,7 +1,11 @@
 package atm2;
 
 public class Account {
-	String number;
+	int number;
 	int money;
 	
+	public Account(int number, int money) {
+		this.number = number;
+		this.money = money;
+	}
 }

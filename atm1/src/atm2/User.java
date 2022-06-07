@@ -25,5 +25,9 @@ public class User {
 	public int getAccCount() {
 		return accCount;
 	}
+	
+	public Account[] setAccList(Account[] accList) {
+		return this.accList = accList;
+	}
 
 }
