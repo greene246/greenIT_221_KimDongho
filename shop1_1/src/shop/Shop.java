@@ -55,7 +55,7 @@ public class Shop {
 			} else if (sel == 2) {
 				im.delMyItem();
 			} else if (sel == 3) {
-				break;
+				im.purchase(um.userList.get(um.userLog));
 			} else if (sel == 0) {
 				break;
 			}

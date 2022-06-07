@@ -165,7 +165,7 @@ public class ItemManager {
 		else System.out.println(id + "님의 장바구니는 이미 비어있습니다.");
 			
 	}
-
+	
 	void addCart(String usID, int caID, int itemID) {
 		int n = 0;
 		Cart temp = new Cart();
@@ -184,13 +184,42 @@ public class ItemManager {
 	void delMyItem() {
 		int n = 0;
 		System.out.println("[삭제] 삭제할 물품의 번호를 입력하세요.");
-		int sel = scan.nextInt();
 		
 		for (int i = 0; i < jangList.size(); i++) {
+			System.out.print("[" + i + "]");
 			jangList.get(i).print();
-			
 		}
 		
+		int sel = scan.nextInt();
+		if(sel >= 0 && sel < jangList.size()) {
+			System.out.println("'" + jangList.get(sel).itemName + "' 물품이 삭제되었습니다. ");
+			jangList.remove(sel);
+		}
+		else System.out.println("범위 오류");
+	}
+	
+	void purchase(User u) {
+		int pay = 0;
+		for(int i=0; i<jangList.size(); i++) {
+			if(u.id.equals(jangList.get(i).userId)) {
+				String str = jangList.get(i).itemName;
+				for(int j=0; j<itemList.size(); j++) {
+					if(str == itemList.get(j).name) {
+						pay += itemList.get(j).price;
+					}
+				}
+			}
+		}
 		
+		if(pay <= u.money) {
+			u.money -= pay;
+			
+			for(int i=jangList.size()-1; i>=0; i--) {
+				if(u.id.equals(jangList.get(i).userId)) 
+					jangList.remove(i);
+			}
+			System.out.println("구매 완료");
+		}
+		else System.out.println("금액이 부족합니다.");
 	}
 }
