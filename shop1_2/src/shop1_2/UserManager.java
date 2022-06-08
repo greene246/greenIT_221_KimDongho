@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class UserManager {
 	public static Vector<User> userList = new Vector<>();
-	private int log = -1;
+	public static int log = -1;
 	
 	public void printUser() {
 		for(int i=0; i<userList.size(); i++) {
@@ -99,29 +99,21 @@ public class UserManager {
 		return -1;
 	}
 	
-	public void logIn() {
-		while(true) {
-			System.out.print("[0]종료\nID : ");
-			String id = Shop.sc.next();
-			
-			if(id.equals("0")) break;
-			
-			System.out.print("PW : ");
-			String pw = Shop.sc.next();
-			
-			if(userCheck(id, pw) >= 0) {
-				log = userCheck(id, pw);
-				System.out.println("'" + id + "' 회원님 환영합니다.");
-				break;
-			}
-			else System.out.println("회원정보를 다시 확인해주세요");
+	public boolean logIn() {
+		System.out.print("[0]종료\nID : ");
+		String id = Shop.sc.next();
+
+		System.out.print("PW : ");
+		String pw = Shop.sc.next();
+
+		if (userCheck(id, pw) >= 0) {
+			log = userCheck(id, pw);
+			System.out.println("'" + id + "' 회원님 환영합니다.");
+			return true;
+		} else {
+			System.out.println("회원정보를 다시 확인해주세요");
+			return false;
 		}
 	}
 	
-	public void logOut() {
-		if(log != -1) {
-			log = -1;
-			System.out.println("로그아웃 되었습니다.");
-		}
-	}
 }

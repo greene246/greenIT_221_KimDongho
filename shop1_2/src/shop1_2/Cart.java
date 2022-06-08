@@ -7,4 +7,13 @@ public class Cart {
 		this.userId = userId;
 		this.itemName = itemName;
 	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+	
 }

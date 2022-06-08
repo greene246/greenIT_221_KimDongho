@@ -9,4 +9,22 @@ public class Item {
 		this.category = category;
 		this.price = price;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+	
+	
 }
