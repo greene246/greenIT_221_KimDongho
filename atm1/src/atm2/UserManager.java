@@ -61,7 +61,6 @@ static UserManager instance = new UserManager();
 			}
 			
 			else {
-				loginUser.setAccList(new Account());
 			}
 			
 			loginUser.accList[yourAccCnt].number = makeRanNum();
