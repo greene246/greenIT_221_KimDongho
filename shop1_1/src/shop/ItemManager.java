@@ -9,6 +9,7 @@ public class ItemManager {
 	public static Vector<Item> itemList = new Vector<Item>(); // 전체 아이템리스트
 	public static Vector<Cart> jangList = new Vector<Cart>(); // 전체 장바구니
 	public static int n = 0;
+	
 	public ItemManager() {
 		init();
 	}

@@ -4,8 +4,11 @@ import java.util.Vector;
 
 public class ItemManager {
 	private Vector<String> category = new Vector<>();
-	private Vector<Item> items = new Vector<>();
-	private Vector<Cart> carts = new Vector<>();
+	public static Vector<Item> items = new Vector<>();
+	public static Vector<Cart> carts = new Vector<>();
+	public static int n = 0;
+	private int x = 0;		// 장바구니 번호
+	private int y = 0;		// 카트에 넣을 때 번호
 	
 	public void inIt() {
 		category.add("과자");
@@ -131,10 +134,12 @@ public class ItemManager {
 	}
 	
 	public void myCart(int log) {
+		x = 0;
 		String me = UserManager.userList.get(log).getId();
 		for(int i=0; i<carts.size(); i++) {
 			if(me.equals(carts.get(i).getUserId())) {
-				System.out.println("[" + (i+1) + "]" + carts.get(i).getItemName());
+				System.out.println("[" + (x+1) + "]" + carts.get(i).getItemName());
+				x++;
 			}
 		}
 	}
@@ -150,22 +155,66 @@ public class ItemManager {
 			if(sel >= 0 && sel < category.size()) {
 				printMenu(sel);
 				System.out.print("담기 : ");
-				sel = Shop.sc.nextInt();
+				int selItem = Shop.sc.nextInt()-1;
 				
+				if(selItem >= 0 && selItem < n) {
+					addInCart(UserManager.userList.get(UserManager.log).getId(), sel, selItem);
+					System.out.println("장바구니에 담았습니다.");
+				}
+				else System.out.println("범위 오류");
 			}
 			else System.out.println("범위 오류");
 		}
 	}
 	
+	public void addInCart(String userId, int sel, int selItem) {
+		
+		y = 0;
+		
+		Cart temp = new Cart();
+		temp.setUserId(userId);
+		
+		for(int i=0; i<items.size(); i++) {
+			if(category.get(sel).equals(items.get(i).getCategory())) {
+				if(selItem == y)
+					temp.setItemName(items.get(i).getName());
+				y++;
+			}
+		}
+		carts.add(temp);
+	}
+	
 	public void printMenu(int sel) {
+		n = 0;
 		String temp = category.get(sel);
 		
 		for(int i=0; i<items.size(); i++) {
 			if(temp.equals(items.get(i).getCategory())) {
-				System.out.printf("[%d]%s\t%s\n",(i+1),items.get(i).getName(),items.get(i).getPrice());
+				System.out.printf("[%d]%s\t%s\n",(n+1),items.get(i).getName(),items.get(i).getPrice());
+				n++;
 			}
 		}
 	}
+	
+	public void delFromCart() {
+		myCart(UserManager.log);
+		System.out.print("삭제할 아이템 번호 : ");
+		int sel = Shop.sc.nextInt() -1;
+		
+		if(sel >= 0 && sel < x) {
+			
+		}
+		
+	}
+	
+	public void removeMyCart(int log) {
+		for(int i=carts.size()-1; i>=0; i--) {
+			if(UserManager.userList.get(log).getId().equals(carts.get(i).getUserId()))
+				carts.remove(i);
+		}
+	}
+	
+	
 	
 }
 

@@ -116,4 +116,14 @@ public class UserManager {
 		}
 	}
 	
+	public void inputMoney() {
+		System.out.print("충전할 금액 : ");
+		int inputMoney = Shop.sc.nextInt();
+		
+		int beforeMoney = userList.get(log).getMoney();
+		
+		userList.get(log).setMoney(beforeMoney + inputMoney);
+		System.out.println(inputMoney + "원이 충전되었습니다.");
+	}
+	
 }
