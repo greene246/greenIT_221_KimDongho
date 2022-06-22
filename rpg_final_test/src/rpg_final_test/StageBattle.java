@@ -8,7 +8,7 @@ public class StageBattle extends Stage {
 	}
 	
 	@Override
-	public boolean update() {
+	public boolean update(User user) {
 		// TODO Auto-generated method stub
 		return false;
 	}

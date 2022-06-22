@@ -46,6 +46,7 @@ public class UserManager {
 			User user = new User(userCode, id, pw);
 			
 			userList.add(user);
+			defaultUnit(user);
 			System.out.println("[회원가입 되었습니다.]\n");
 			return true;
 		}
@@ -55,9 +56,21 @@ public class UserManager {
 		}
 	}
 	
+	private void defaultUnit(User user) {
+		user.addChar(new Player("전사", 1000, 45));
+		user.addChar(new Player("마법사", 700, 55));
+		user.addChar(new Player("힐러", 900, 50));
+		user.addChar(new Player("도적", 600, 60));
+		user.addParty(new Player("전사", 1000, 45));
+		user.addParty(new Player("마법사", 700, 55));
+		user.addParty(new Player("힐러", 900, 50));
+		user.addParty(new Player("도적", 600, 60));
+	}
+	
 	public boolean UserCheck(String id, String pw) {
 		for(int i=0; i<userList.size(); i++) {
 			if(userList.get(i).getId().equals(id) && userList.get(i).getPw().equals(pw)) {
+				GameManager.user = userList.get(i);
 				return true;
 			}
 		}

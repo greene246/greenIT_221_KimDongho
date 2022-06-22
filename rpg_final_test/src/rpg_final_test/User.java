@@ -5,15 +5,39 @@ import java.util.ArrayList;
 public class User {
 	private int num;
 	private String id, pw;
+	private int money;
 	private ArrayList<Player> character;
+	private ArrayList<Player> party;
 	
 	public User(int num, String id, String pw) {
 		this.num = num;
 		this.id = id;
 		this.pw = pw;
+		this.money = 10000;
 		this.character = new ArrayList<>();
+		this.party = new ArrayList<>();
 	}
 	
+	public ArrayList<Player> getParty() {
+		return party;
+	}
+
+	public ArrayList<Player> getCharacter() {
+		return character;
+	}
+
+	public void remove(int sel){
+		this.character.remove(sel);
+	}
+	
+	public void addChar(Player player) {
+		this.character.add(player);
+	}
+	
+	public void addParty(Player player) {
+		this.party.add(player);
+	}
+
 	public int getNum() {
 		return num;
 	}
@@ -33,12 +57,17 @@ public class User {
 		this.pw = pw;
 	}
 	
-	@Override
-	public String toString() {
-		for(int i=0; i<character.size(); i++) {
-			String.format("[%d] [%s]", (i+1), character.get(i).getName());
+	public void myUnits() {
+		for(int i=0; i<this.character.size(); i++) {
+			System.out.print("[" + (i+1) + "] ");
+			this.character.get(i).printData();
 		}
-		return toString();
 	}
 	
+	public void myPartys() {
+		for(int i=0; i<this.party.size(); i++) {
+			System.out.print("[" + (i+1) + "] ");
+			this.party.get(i).printData();
+		}
+	}
 }

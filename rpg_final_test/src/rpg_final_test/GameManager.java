@@ -6,22 +6,24 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameManager {
+
 	public static Random ran = new Random();
 	public static Scanner sc = new Scanner(System.in);
 	public static String nextStage = "";
 	private String curStage = "";
-	Map<String, Stage> stageList = new HashMap<>();
+	private Map<String, Stage> stageList = new HashMap<>();
+	public static User user;
+	
 	
 	public GameManager() {
 		stageList.put("TITLE", new StageTitle());
 		stageList.put("LOBBY", new StageLobby());
 		stageList.put("BATTLE", new StageBattle());
-		stageList.put("LOG-IN", new StageLogin());
-		stageList.put("JOIN-IN", new StageJoin());
 		
 		nextStage = "TITLE";
+
 	}
-	
+
 	boolean changeStage() {
 		while(true) {
 			System.out.println("CurStage : " + curStage);
@@ -36,7 +38,7 @@ public class GameManager {
 			
 			boolean run = true;
 			while(true) {
-				run = stage.update();
+				run = stage.update(user);
 				if(run == false)
 					break;
 			}
