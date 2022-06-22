@@ -3,7 +3,7 @@ package rpg_final_test;
 public class UnitRedSnail extends Unit {
 
 	public UnitRedSnail() {
-		name = "빨간달팽이";
+		this.setName("빨간 달팽이");
 	}
 	
 }

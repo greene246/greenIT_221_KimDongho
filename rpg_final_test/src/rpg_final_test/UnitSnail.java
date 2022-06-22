@@ -3,7 +3,7 @@ package rpg_final_test;
 public class UnitSnail extends Unit {
 	
 	public UnitSnail() {
-		name = "달팽이";
+		this.setName("달팽이");
 	}
 	
 	public void skill() {
