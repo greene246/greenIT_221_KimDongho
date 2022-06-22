@@ -4,21 +4,26 @@ public class StageTitle extends Stage {
 	
 	@Override
 	public void init() {
-		System.out.println("====[TEXT RPG]====");
-		System.out.println("[시작]을 입력하세요");
-		
-		String input = GameManager.sc.next();
-		if(input.equals("시작")) {
-			
-		}
-		
 		
 	}
 	
 	@Override
 	public boolean update() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("====[TEXT RPG]====");
+		while(true) {
+			System.out.println("1.로그인 2.회원가입");
+			
+			int sel = GameManager.sc.nextInt();
+			
+			if(sel == 1) {
+				GameManager.nextStage = "LOG-IN";
+				return false;
+			}
+			else if(sel == 2) {
+				GameManager.nextStage = "JOIN-IN";
+				return false;
+			}
+		}
 	}
 	
 	

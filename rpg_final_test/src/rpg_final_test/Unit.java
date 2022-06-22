@@ -1,6 +1,6 @@
 package rpg_final_test;
 
-public class Unit {
+public abstract class Unit {
 	private int hp,maxHp,att;
 	private String name;
 	private String state = "노말";
@@ -10,6 +10,7 @@ public class Unit {
 	
 	public Unit(String name, int maxHp, int att) {
 		this.name = name;
+		this.hp = maxHp;
 		this.maxHp = maxHp;
 		this.att = att;
 	}

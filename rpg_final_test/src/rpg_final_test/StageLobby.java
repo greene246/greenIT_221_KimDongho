@@ -9,7 +9,17 @@ public class StageLobby extends Stage {
 	
 	@Override
 	public boolean update() {
-		// TODO Auto-generated method stub
+		System.out.println("====[LOBBY]====");
+		System.out.println();
+		int sel = GameManager.sc.nextInt();
+		
+		if(sel == 1) {
+			GameManager.nextStage = "BATTLE";
+			
+			return false;
+		}
+		
 		return false;
+
 	}
 }
