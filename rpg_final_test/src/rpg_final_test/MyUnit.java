@@ -14,17 +14,15 @@ public class MyUnit {
 	}
 	
 	public ArrayList<Player> legend() {
-		this.legend.add(new Player("해적", 800, 70));
-		this.legend.add(new Player("궁수", 700, 80));
-		this.legend.add(new Player("창기사", 1000, 100));
+		this.legend.add(new Player("해적", 1000, 100));
+		this.legend.add(new Player("궁수", 700, 130));
+		this.legend.add(new Player("창기사", 1200, 80));
 		
 		return legend;
 	}
 	
 	public void printMenu(User user) {
 		while(true) {
-			System.out.println("\n====[나의 유닛]====");
-			System.out.println(user.getParty().size());
 			user.myUnits();
 			System.out.println("\n1.[파티교체] 2.[영입]\n3.[방출] 0.뒤로가기");
 			int sel = GameManager.sc.nextInt();
@@ -40,26 +38,33 @@ public class MyUnit {
 		if(user.getCharacter().size() > 4) {
 			user.myPartys();
 			System.out.print("교체할 유닛 번호 : ");
-			int sel = GameManager.sc.nextInt();
+			int sel = GameManager.sc.nextInt() -1;
 			
 			remainUnit(user);
 			System.out.println("새로 파티에 들어갈 유닛 번호 : ");
 			
-			int change = GameManager.sc.nextInt();
+			int change = GameManager.sc.nextInt() - 1;
 			
+			user.getParty().remove(sel);
+			user.getParty().add(user.getCharacter().get(change + 4));
+			System.out.println("교체되었습니다.");
 		}
 		else System.out.println("유닛 수가 부족합니다.");
 	}
 	
 	private void remainUnit(User user) {
-		boolean check = true;
+		int n = 1;
 		for(int i=0; i<user.getCharacter().size(); i++) {
+			boolean check = true;
 			for(int j=0; j<user.getParty().size(); j++) {
 				if(user.getCharacter().get(i).getName().equals(user.getParty().get(j).getName()))
 					check = false;
 			}
-			if(check)
+			if(check) {
+				System.out.printf("[%d] ", n);
 				user.getCharacter().get(i).printData();
+				n++;
+			}
 		}
 	}
 	
@@ -69,7 +74,7 @@ public class MyUnit {
 			legend.get(i).printData();
 		}
 		
-		System.out.print("영입할 유닛 : ");
+		System.out.print("영입할 유닛 [5000G]: ");
 		int sel = GameManager.sc.nextInt() - 1;
 		
 		if(sel >= 0 && sel < legend.size()) {
@@ -82,20 +87,19 @@ public class MyUnit {
 			}
 			
 			user.addChar(legend.get(sel));
+			user.setMoney(user.getMoney() - 5000);
 			System.out.println("영입 완료");
 		}
 		else return;
 	}
 	
 	private void removeChar(User user) {
-		for(int i=0; i<user.getCharacter().size(); i++) {
-			System.out.print("[" + (i+1) + "] ");
-			user.getCharacter().get(i).printData();
-		}
-		System.out.print("방출할 유닛 번호 : ");
+		remainUnit(user);
+		System.out.println("삭제할 유닛 번호 : ");
+		
 		int sel = GameManager.sc.nextInt() - 1;
 		
-		user.getCharacter().remove(sel);
+		user.getCharacter().remove(user.getCharacter().get(sel + 4));
 	}
 	
 }

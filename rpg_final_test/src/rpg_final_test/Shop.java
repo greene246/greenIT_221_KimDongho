@@ -26,4 +26,35 @@ public class Shop {
 		return itemList;
 	}
 	
+	public void buyItems(User user) {
+		printItemList();
+		
+		System.out.print("원하는 아이템을 선택해주세요 : ");
+		int sel = GameManager.sc.nextInt() -1;
+		
+		if(sel < 0)
+			return;
+		
+		Item target = itemList.get(sel);
+		int targetPrice = itemList.get(sel).getPrice();
+		int myMoney = user.getMoney();
+		
+		if(targetPrice > myMoney) {
+			System.out.println("보유 골드가 부족합니다.");
+		}
+		else {
+			user.setMoney(myMoney - targetPrice);
+			user.getInventory().add(target);
+			System.out.println("[" + target.getName() + "] 구매 완료\n");
+		}
+	}
+	
+	public void printItemList() {
+		int n = 1;
+		for(Item i : itemList) {
+			System.out.println("[" + n + "]" + i.toString());
+			n++;
+		}
+	}
+	
 }

@@ -8,6 +8,7 @@ public class User {
 	private int money;
 	private ArrayList<Player> character;
 	private ArrayList<Player> party;
+	private ArrayList<Item> inventory;
 	
 	public User(int num, String id, String pw) {
 		this.num = num;
@@ -16,8 +17,17 @@ public class User {
 		this.money = 10000;
 		this.character = new ArrayList<>();
 		this.party = new ArrayList<>();
+		this.inventory = new ArrayList<>();
 	}
 	
+	public ArrayList<Item> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(ArrayList<Item> inventory) {
+		this.inventory = inventory;
+	}
+
 	public ArrayList<Player> getParty() {
 		return party;
 	}
@@ -56,7 +66,13 @@ public class User {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
 	public void myUnits() {
 		for(int i=0; i<this.character.size(); i++) {
 			System.out.print("[" + (i+1) + "] ");
@@ -68,6 +84,13 @@ public class User {
 		for(int i=0; i<this.party.size(); i++) {
 			System.out.print("[" + (i+1) + "] ");
 			this.party.get(i).printData();
+		}
+	}
+	
+	public void myInventory() {
+		for(int i=0; i<this.inventory.size(); i++) {
+			System.out.print("[" + (i+1) + "] ");
+			System.out.println(this.inventory.get(i).toString());
 		}
 	}
 }

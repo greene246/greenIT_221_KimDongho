@@ -4,6 +4,7 @@ public class _Main {
 	public static void main(String[] args) {
 		GameManager gm = new GameManager();
 		MyUnit.getInstance().legend();
+		Shop.getInstance().makeItem();
 
 		boolean isRun = true;
 		
