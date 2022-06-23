@@ -14,7 +14,7 @@ public class MonsterManager {
 		return instance;
 	}
 	
-	public void monsterSet() {
+	public void monsterSet(int stageLevel) {
 		this.monList.clear();
 		
 		int monNum = GameManager.ran.nextInt(4) + 1;
@@ -26,8 +26,8 @@ public class MonsterManager {
 				Object objMon = clazz.getDeclaredConstructor().newInstance();
 				Unit tempMon = (Unit) objMon;
 				
-				int hp = GameManager.ran.nextInt(99)+100;
-				int att = GameManager.ran.nextInt(11)+10;
+				int hp = GameManager.ran.nextInt(99) +50 + (stageLevel*50);
+				int att = GameManager.ran.nextInt(11) + (stageLevel*10);
 				
 				tempMon.init(hp, att);
 				monList.add(tempMon);

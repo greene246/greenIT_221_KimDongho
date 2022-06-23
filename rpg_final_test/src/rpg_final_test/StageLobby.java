@@ -10,15 +10,12 @@ public class StageLobby extends Stage {
 	
 	@Override
 	public boolean update(User user) {
-		Shop sInstance = Shop.getInstance();
-		
 		while(true) {
-			System.out.println("====[LOBBY]==== [" + user.getMoney() + "G]");
+			System.out.println("========[LOBBY]======== [" + user.getMoney() + "G]");
 			System.out.println("1.[나의 캐릭터 관리] 2.[던전입장]\n3.[상점] 4.[창고] 0.뒤로가기");
 			int sel = GameManager.sc.nextInt();
 			
 			if(sel == 1) {
-				System.out.println("\n====[MY UNITS]====");
 				MyUnit.getInstance().printMenu(user);
 			}
 			else if(sel == 2) {
@@ -26,11 +23,9 @@ public class StageLobby extends Stage {
 				return false;
 			}
 			else if(sel == 3) {
-				System.out.println("====[SHOP]====");
-				sInstance.shopMenu(user);
+				Shop.getInstance().shopMenu(user);
 			}
 			else if(sel == 4) {
-				System.out.println("====[INVEN]====");
 				user.myInventory();
 			}
 			else if(sel == 0) {

@@ -16,10 +16,27 @@ public abstract class Unit {
 		this.att = att;
 	}
 	
-	public String attack(Unit target) {
+	public String attackMonster(Unit target, Player attacker) {
+		String str = "";
+		target.hp -= this.att;
+		if(attacker.getWeapon() == null) {
+			str = String.format("[%s] 이(가) [%s] 을(를) [%d]의 대미지로 공격!", this.name, target.getName(), this.att);
+		}
+		else
+			str = String.format("[%s] 이(가) [%s] 을(를) [%d + %d]의 대미지로 공격!", this.name, target.getName(), this.att, attacker.getWeapon().getPower());
+			
+		if(target.hp <= 0) {
+			str = String.format("[%s] 을(를) 처치하였습니다", target.name);
+			target.hp = 0;
+		}
+		return str;
+	}
+	
+	public String attackPlayer(Unit target) {
 		String str = "";
 		target.hp -= this.att;
 		str = String.format("[%s] 이(가) [%s] 을(를) [%d]의 대미지로 공격!", this.name, target.getName(), this.att);
+		
 		if(target.hp <= 0) {
 			str = String.format("[%s] 을(를) 처치하였습니다", target.name);
 			target.hp = 0;

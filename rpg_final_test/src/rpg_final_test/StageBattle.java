@@ -1,80 +1,103 @@
 package rpg_final_test;
 
+import java.util.ArrayList;
+
 public class StageBattle extends Stage {
+	private MonsterManager monsterInstance = MonsterManager.getInstance();
+	private int dungeonStage = 1;
 	
-	private MonsterManager monterInstance = MonsterManager.getInstance();
+	private Player[] party = MyUnit.getInstance().partyList;
+	
+	public StageBattle() {}
 	
 	@Override
 	public void init() {
-		monterInstance.monsterSet();
+		monsterInstance.monsterSet(dungeonStage);
 	}
 	
 	@Override
 	public boolean update(User user) {
-		System.out.println("====[DUNGEON]====");
+		System.out.println("========[DUNGEON]========");
 		System.out.println("1.앞으로 나가아기 2.마을로 돌아가기");
 		
 		int sel = GameManager.sc.nextInt();
 		
-		if(sel == 1) { battle(user); }
+		init();
+		
+		if(sel == 1) { 
+			moveFoward(user);
+			dungeonStage ++;
+		}
 		else if(sel == 2) {
 			GameManager.nextStage = "LOBBY";
+			return false;
+		}
+		
+		if(dungeonStage == 5) {
+			GameManager.nextStage = "LOBBY";
+			int reward = 3000;
+			user.setMoney(user.getMoney() + reward);
+			System.out.println("========[DUNGEON CLEAR!]========");
 			return false;
 		}
 
 		return true;
 	}
 	
-	private void battle(User user) {
+	private void moveFoward(User user) {
 		int turn = 0;
 		while(true) {
 			System.out.println("========[PLYAER]========");
-			user.myPartys();
-			System.out.println("========[MONSTER]========");
-			monterInstance.printMons();
+			MyUnit.getInstance().printParty();
 			
 			while(true) {
 				if(turn == 0) {
-					playerAtt(user);
+					System.out.println("========[MONSTER]========");
+					monsterInstance.printMons();
+					playerAtt();
 					turn ++;
 				}
 				else if(turn == 1) {
-					monsterAtt(user);
+					monsterAtt();
 					turn++;
 				}
+				turn = turn == 2 ? 0 : 1;
 				if(battleOver(user)) 
 					return;
-				turn = turn == 2 ? 0 : 1;
 			}
 		}
 	}
 	
 	private boolean battleOver(User user) {
 		int playerDead = 0;
-		for(int i=0; i<user.getParty().size(); i++) {
-			if(user.getParty().get(i).getHp() <= 0) {
+		for(int i=0; i<party.length; i++) {
+			if(party[i].getHp() <= 0) {
 				playerDead ++;
 			}
 		}
 		
 		int monsterDead = 0;
-		for(int i=0; i<monterInstance.getMonList().size(); i++) {
-			if(monterInstance.getMonList().get(i).getHp() <= 0) {
+		for(int i=0; i<monsterInstance.getMonList().size(); i++) {
+			if(monsterInstance.getMonList().get(i).getHp() <= 0) {
 				monsterDead ++;
 			}
 		}
 		
-		if(playerDead == user.getParty().size() || monsterDead == monterInstance.getMonList().size())
+		if(playerDead == party.length || monsterDead == monsterInstance.getMonList().size())
 			return true;
 		else
 			return false;
 	}
 	
-	public void playerAtt(User user) {
+	public void playerAtt() {
 		System.out.println("\n========[PLAYER TURN]========");
 		int playerIdx = 0;
 		while(playerIdx < 4) {
-			Unit attacker = user.getParty().get(playerIdx);
+			
+			if(monsterInstance.getMonList().size() <= 0)
+				return;
+			
+			Player attacker = party[playerIdx];
 			
 			System.out.println(attacker.toString());
 			System.out.println("1.기본 공격 2.스킬");
@@ -82,16 +105,16 @@ public class StageBattle extends Stage {
 			int sel = GameManager.sc.nextInt();
 			
 			if(sel == 1) {
-				int monIdx = GameManager.ran.nextInt(monterInstance.getMonList().size());
-				Unit target = monterInstance.getMonList().get(monIdx);
+				int monIdx = GameManager.ran.nextInt(monsterInstance.getMonList().size());
+				Unit target = monsterInstance.getMonList().get(monIdx);
 				
 				if(target.getHp() <= 0)
 					return;
 				
-				System.out.println(attacker.attack(target) + "\n");
+				System.out.println(attacker.attackMonster(target, attacker) + "\n");
 				
 				if(target.getHp() == 0) {
-					monterInstance.getMonList().remove(monIdx);
+					monsterInstance.getMonList().remove(monIdx);
 				}
 			}
 			else if(sel == 2) {
@@ -106,18 +129,19 @@ public class StageBattle extends Stage {
 		
 	}
 	
-	public void monsterAtt(User user) {
+	public void monsterAtt() {
 		System.out.println("\n========[MONSTER TURN]========");
 		int mIdx = 0;
-		while(mIdx < monterInstance.getMonList().size()) { 
-			Unit monster = monterInstance.getMonList().get(mIdx);
+		while(mIdx < monsterInstance.getMonList().size()) { 
+			Unit monster = monsterInstance.getMonList().get(mIdx);
 			
-			int playerIdx = GameManager.ran.nextInt(user.getParty().size());
-			Unit target = user.getParty().get(playerIdx);
+			int playerIdx = GameManager.ran.nextInt(party.length);
+			Unit target = party[playerIdx];
 			
-			System.out.println(monster.attack(target));
+			System.out.println(monster.attackPlayer(target));
 			
 			mIdx++;
 		}
 	}
+
 }

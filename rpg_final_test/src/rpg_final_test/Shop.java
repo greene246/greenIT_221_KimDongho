@@ -28,6 +28,7 @@ public class Shop {
 	
 	public void shopMenu(User user) {
 		while(true) {
+			System.out.println("========[SHOP]========");
 			System.out.printf("1.[구매] 2.[판매] 0.[뒤로가기] [%dG]\n", user.getMoney());
 			int sel = GameManager.sc.nextInt();
 			
@@ -39,7 +40,7 @@ public class Shop {
 	
 	public void buyItems(User user) {
 		while(true) {
-			System.out.println("====[BUY]====");
+			System.out.println("========[BUY]========");
 			System.out.printf("[%dG]\n", user.getMoney());
 			printItemList();
 			
@@ -74,7 +75,7 @@ public class Shop {
 	
 	public void sellItems(User user) {
 		while(true) {
-			System.out.println("====[SELL]==== 기존 가격의 1/2 값");
+			System.out.println("========[SELL]======== 기존 가격의 1/2 값");
 			System.out.printf("[%dG]\n", user.getMoney());
 			user.myInventory();
 			

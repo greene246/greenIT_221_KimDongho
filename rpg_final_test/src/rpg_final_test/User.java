@@ -7,7 +7,6 @@ public class User {
 	private String id, pw;
 	private int money;
 	private ArrayList<Player> character;
-	private ArrayList<Player> party;
 	private ArrayList<Item> inventory;
 	
 	public User(int num, String id, String pw) {
@@ -16,7 +15,6 @@ public class User {
 		this.pw = pw;
 		this.money = 10000;
 		this.character = new ArrayList<>();
-		this.party = new ArrayList<>();
 		this.inventory = new ArrayList<>();
 	}
 	
@@ -26,10 +24,6 @@ public class User {
 
 	public void setInventory(ArrayList<Item> inventory) {
 		this.inventory = inventory;
-	}
-
-	public ArrayList<Player> getParty() {
-		return party;
 	}
 
 	public ArrayList<Player> getCharacter() {
@@ -44,10 +38,6 @@ public class User {
 		this.character.add(player);
 	}
 	
-	public void addParty(Player player) {
-		this.party.add(player);
-	}
-
 	public int getNum() {
 		return num;
 	}
@@ -72,25 +62,22 @@ public class User {
 	public void setMoney(int money) {
 		this.money = money;
 	}
-
+	
 	public void myUnits() {
+		System.out.println("=======[MY UNITS]=======");
 		for(int i=0; i<this.character.size(); i++) {
 			String str = "[" + (i+1) + "] " + this.character.get(i).toString();
 			System.out.println(str);
 		}
-	}
-	
-	public void myPartys() {
-		for(int i=0; i<this.party.size(); i++) {
-			String str = "[" + (i+1) + "] " + this.party.get(i).toString();
-			System.out.println(str);
-		}
+		System.out.println("==========================");
 	}
 	
 	public void myInventory() {
+		System.out.println("========[MY INVENTORY]========");
 		for(int i=0; i<this.inventory.size(); i++) {
 			System.out.print("[" + (i + 1) + "] ");
 			System.out.println(this.inventory.get(i).toString());
 		}
+		System.out.println("==============================");
 	}
 }

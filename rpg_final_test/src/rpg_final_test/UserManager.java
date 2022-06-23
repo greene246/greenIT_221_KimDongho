@@ -57,14 +57,10 @@ public class UserManager {
 	}
 	
 	private void defaultUnit(User user) {
-		user.addChar(new Player("전사", 1000, 45));
-		user.addChar(new Player("마법사", 700, 55));
-		user.addChar(new Player("힐러", 900, 50));
-		user.addChar(new Player("도적", 600, 60));
-		user.addParty(new Player("전사", 1000, 45));
-		user.addParty(new Player("마법사", 700, 55));
-		user.addParty(new Player("힐러", 900, 50));
-		user.addParty(new Player("도적", 600, 60));
+		user.addChar(new Player("전사", 1000, 45, 1));
+		user.addChar(new Player("마법사", 700, 55, 1));
+		user.addChar(new Player("힐러", 900, 50, 1));
+		user.addChar(new Player("도적", 600, 60, 1));
 	}
 	
 	public boolean UserCheck(String id, String pw) {

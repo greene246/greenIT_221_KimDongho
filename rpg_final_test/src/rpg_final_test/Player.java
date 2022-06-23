@@ -4,8 +4,14 @@ public class Player extends Unit{
 	
 	private Item weapon;
 	
-	public Player(String name, int hp, int att) {
+	private boolean party;
+	
+	public Player(String name, int hp, int att, int party) {
 		super(name, hp, att);
+		if(party == 1)
+			this.party = true;
+		else if(party == 2)
+			this.party = false;
 	}
 
 	public Item getWeapon() {
@@ -16,6 +22,14 @@ public class Player extends Unit{
 		this.weapon = weapon;
 	}
 	
+	public boolean isParty() {
+		return party;
+	}
+
+	public void setParty(boolean party) {
+		this.party = party;
+	}
+
 	public String toString() {
 		String str = "";
 		if(weapon != null)
