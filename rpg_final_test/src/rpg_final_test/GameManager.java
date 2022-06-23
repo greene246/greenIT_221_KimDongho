@@ -14,7 +14,6 @@ public class GameManager {
 	private Map<String, Stage> stageList = new HashMap<>();
 	public static User user;
 	
-	
 	public GameManager() {
 		stageList.put("TITLE", new StageTitle());
 		stageList.put("LOBBY", new StageLobby());
@@ -23,7 +22,7 @@ public class GameManager {
 		nextStage = "TITLE";
 
 	}
-
+	
 	boolean changeStage() {
 		while(true) {
 			System.out.println("CurStage : " + curStage);

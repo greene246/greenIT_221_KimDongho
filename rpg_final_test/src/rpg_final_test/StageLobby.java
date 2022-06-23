@@ -23,6 +23,7 @@ public class StageLobby extends Stage {
 			}
 			else if(sel == 2) {
 				GameManager.nextStage = "BATTLE";
+				return false;
 			}
 			else if(sel == 3) {
 				System.out.println("====[SHOP]====");
