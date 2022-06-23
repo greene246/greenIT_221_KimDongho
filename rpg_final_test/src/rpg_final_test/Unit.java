@@ -63,7 +63,11 @@ public abstract class Unit {
 		this.att = att;
 	}
 	
-	
+	public void init(int hp, int att) {
+		this.hp = hp;
+		this.maxHp = hp;
+		this.att = att;
+	}
 	
 	
 	

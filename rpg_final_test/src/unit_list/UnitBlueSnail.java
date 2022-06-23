@@ -1,4 +1,6 @@
-package rpg_final_test;
+package unit_list;
+
+import rpg_final_test.Unit;
 
 public class UnitBlueSnail extends Unit {
 	
