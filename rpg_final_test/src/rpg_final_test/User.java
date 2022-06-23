@@ -75,21 +75,21 @@ public class User {
 
 	public void myUnits() {
 		for(int i=0; i<this.character.size(); i++) {
-			System.out.print("[" + (i+1) + "] ");
-			this.character.get(i).printData();
+			String str = "[" + (i+1) + "] " + this.character.get(i).toString();
+			System.out.println(str);
 		}
 	}
 	
 	public void myPartys() {
 		for(int i=0; i<this.party.size(); i++) {
-			System.out.print("[" + (i+1) + "] ");
-			this.party.get(i).printData();
+			String str = "[" + (i+1) + "] " + this.party.get(i).toString();
+			System.out.println(str);
 		}
 	}
 	
 	public void myInventory() {
 		for(int i=0; i<this.inventory.size(); i++) {
-			System.out.print("[" + (i+1) + "] ");
+			System.out.print("[" + (i + 1) + "] ");
 			System.out.println(this.inventory.get(i).toString());
 		}
 	}

@@ -24,12 +24,13 @@ public class MyUnit {
 	public void printMenu(User user) {
 		while(true) {
 			user.myUnits();
-			System.out.println("\n1.[파티교체] 2.[영입]\n3.[방출] 0.뒤로가기");
+			System.out.println("\n1.[파티교체] 2.[영입] 3.[방출]\n4.[장비] 0.뒤로가기");
 			int sel = GameManager.sc.nextInt();
 			
 			if(sel == 1) { partyMenu(user); }
 			else if(sel == 2) { addUnit(user); }
 			else if(sel == 3) { removeChar(user); }
+			else if(sel == 4) { equipment(user); }
 			else if(sel == 0) break;
 		}
 	}
@@ -48,6 +49,9 @@ public class MyUnit {
 			user.getParty().remove(sel);
 			user.getParty().add(user.getCharacter().get(change + 4));
 			System.out.println("교체되었습니다.");
+			System.out.println("====[현재 파티]====");
+			user.myPartys();
+			System.out.println("================");
 		}
 		else System.out.println("유닛 수가 부족합니다.");
 	}
@@ -62,7 +66,7 @@ public class MyUnit {
 			}
 			if(check) {
 				System.out.printf("[%d] ", n);
-				user.getCharacter().get(i).printData();
+				System.out.println(user.getCharacter().get(i).toPrintData());
 				n++;
 			}
 		}
@@ -71,7 +75,7 @@ public class MyUnit {
 	private void addUnit(User user) {
 		for(int i=0; i<legend.size(); i++) {
 			System.out.printf("[%d] ", (i+1));
-			legend.get(i).printData();
+			System.out.println(legend.get(i).toPrintData());
 		}
 		
 		System.out.print("영입할 유닛 [5000G]: ");
@@ -100,6 +104,46 @@ public class MyUnit {
 		int sel = GameManager.sc.nextInt() - 1;
 		
 		user.getCharacter().remove(user.getCharacter().get(sel + 4));
+	}
+	
+	private void equipment(User user) {
+		while(true) {
+			System.out.println("====[MY UNITS]====");
+			user.myUnits();
+			System.out.println("================");
+			
+			System.out.print("아이템을 장착 / 교체할 유닛을 선택해주세요. 0.[뒤로가기]: ");
+			int selUnit = GameManager.sc.nextInt() -1;
+			
+			if(selUnit < 0 || selUnit >= user.getCharacter().size())
+				return;
+			
+			if(user.getInventory().size() > 0) {
+				System.out.println("====[나의 장비]====");
+				user.myInventory();
+				System.out.println("================");
+				int selItem = GameManager.sc.nextInt() -1;
+				
+				if(selItem < 0 || selItem >= user.getInventory().size())
+					return;
+				
+				Item targetWeapon = user.getInventory().get(selItem);
+				
+				if(targetWeapon.isEquiped()) {
+					System.out.println("해당 장비는 장착할 수 없습니다.");
+					return;
+				}
+				
+				Player targetUnit = user.getCharacter().get(selUnit); 
+				targetUnit.setWeapon(targetWeapon);
+				targetWeapon.setEquiped(true);
+				
+				System.out.printf("[%s] 에게 [%s]가 장착되었습니다.\n",
+						user.getCharacter().get(selUnit).getName(),targetWeapon.getName());
+			}
+			else
+				System.out.println("장착할 아이템이 없습니다.");	
+		}
 	}
 	
 }

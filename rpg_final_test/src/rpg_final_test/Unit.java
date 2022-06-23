@@ -1,9 +1,10 @@
 package rpg_final_test;
 
 public abstract class Unit {
-	private int hp,maxHp,att;
-	private String name;
-	private String state = "노말";
+	protected int hp,maxHp;
+	protected int att;
+	protected String name;
+	protected String state = "노말";
 	
 	public Unit(){
 	};
@@ -24,8 +25,10 @@ public abstract class Unit {
 		}
 	}
 	
-	public void printData() {
-		System.out.printf("[%s] [%d / %d] [공격력 : %d]\n", this.name, this.hp, this.maxHp, this.att);
+	public String toPrintData() {
+		String str = "";
+		str = String.format("[%s] [%d / %d] [공격력 : %d]", this.name, this.hp, this.maxHp, this.att);
+		return str;
 	}
 
 	public String getName() {
@@ -35,6 +38,32 @@ public abstract class Unit {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public int getMaxHp() {
+		return maxHp;
+	}
+
+	public void setMaxHp(int maxHp) {
+		this.maxHp = maxHp;
+	}
+
+	public int getAtt() {
+		return att;
+	}
+
+	public void setAtt(int att) {
+		this.att = att;
+	}
+	
+	
 	
 	
 	

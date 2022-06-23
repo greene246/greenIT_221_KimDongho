@@ -9,7 +9,19 @@ public class StageBattle extends Stage {
 	
 	@Override
 	public boolean update(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("====[DUNGEON]====");
+		System.out.println("");
+
+		int sel = GameManager.sc.nextInt();
+
+		if (sel == 1) {
+			if(logIn()) {
+				GameManager.nextStage = "LOBBY";
+				return false;
+			}
+		} else if (sel == 2) {
+			joinIn();
+		}
+		return true;
 	}
 }
