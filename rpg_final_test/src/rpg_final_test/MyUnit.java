@@ -50,10 +50,12 @@ public class MyUnit {
 	}
 	
 	public void printParty() {
+		System.out.println("========[MY PARTY]========");
 		for(int i=0; i<partyList.length; i++) {
 			String str = "[" + (i+1) + "] " + partyList[i].toString();
 			System.out.println(str);
 		}
+		System.out.println("===========================");
 	}
 	
 	private void partyMenu(User user) {
@@ -69,7 +71,7 @@ public class MyUnit {
 			int range = remainUnit(user) - 1;
 			System.out.print("새로 파티에 들어갈 유닛 번호 : ");
 			
-			int change = GameManager.sc.nextInt() - 1;
+			int change = GameManager.sc.nextInt() + 4;
 			
 			if(change <= -1 || sel >= range)
 				return;

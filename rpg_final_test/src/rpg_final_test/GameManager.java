@@ -1,12 +1,12 @@
 package rpg_final_test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameManager {
-
 	public static Random ran = new Random();
 	public static Scanner sc = new Scanner(System.in);
 	public static String nextStage = "";
@@ -20,7 +20,15 @@ public class GameManager {
 		stageList.put("BATTLE", new StageBattle());
 		
 		nextStage = "TITLE";
-
+		
+		MyUnit.getInstance().legend();
+		Shop.getInstance().makeItem();
+		try {
+			FileManager.getInstance().load();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("저장된 데이터를 불러오는데 실패했습니다.");
+		}
 	}
 	
 	boolean changeStage() {

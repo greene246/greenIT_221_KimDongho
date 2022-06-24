@@ -9,15 +9,15 @@ public class StageLobby extends Stage {
 	}
 	
 	@Override
-	public void dataManager() {
-		FileManager.getInstance().save();
+	public FileManager dataManager() {
+		return FileManager.getInstance();		
 	}
 	
 	@Override
 	public boolean update(User user) {
 		while(true) {
 			MyUnit.getInstance().updateParty(user);
-			dataManager();
+			dataManager().save();
 			heal(user);
 			System.out.println("========[LOBBY]======== [" + user.getMoney() + "G]");
 			System.out.println("1.[나의 캐릭터 관리] 2.[던전입장]\n3.[상점] 4.[창고] 0.뒤로가기");

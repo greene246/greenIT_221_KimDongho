@@ -14,13 +14,13 @@ public class StageBattle extends Stage {
 	}
 	
 	@Override
-	public void dataManager() {
-		FileManager.getInstance().save();
+	public FileManager dataManager() {
+		return FileManager.getInstance();		
 	}
 	
 	@Override
 	public boolean update(User user) {
-		dataManager();
+		dataManager().save();
 		party = MyUnit.getInstance().getPartyList();
 		System.out.printf("========[DUNGEON]========[Stage : %d]\n", dungeonStage);
 		System.out.println("1.앞으로 나가아기 2.마을로 돌아가기");

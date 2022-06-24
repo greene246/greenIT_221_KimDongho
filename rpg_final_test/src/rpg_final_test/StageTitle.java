@@ -1,5 +1,7 @@
 package rpg_final_test;
 
+import java.io.IOException;
+
 public class StageTitle extends Stage {
 	
 	@Override
@@ -8,8 +10,8 @@ public class StageTitle extends Stage {
 	}
 	
 	@Override
-	public void dataManager() {
-		FileManager.getInstance().save();		
+	public FileManager dataManager() {
+		return FileManager.getInstance();		
 	}
 	
 	@Override
