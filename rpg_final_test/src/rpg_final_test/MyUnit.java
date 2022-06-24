@@ -107,6 +107,9 @@ public class MyUnit {
 		System.out.print("영입할 유닛 [5000G] : ");
 		int sel = GameManager.sc.nextInt() - 1;
 		
+		if(user.getMoney() < 5000)
+			return;
+		
 		if(sel >= 0 && sel < legend.size()) {
 			
 			for(int i=0; i<user.getCharacter().size(); i++) {
