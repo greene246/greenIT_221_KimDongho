@@ -2,6 +2,7 @@ package rpg_final_test;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,14 +49,13 @@ public class FileManager {
 			str += target.getId() + "/";
 			str += target.getPw() + "/";
 			str += target.getMoney() + "\n";
-			str += targetChars.size() + "\n";
 			
 			for(Player player : targetChars) {
 				str += player.getName() + "/";
 				str += player.getHp() + "/";
-				str += player.getMaxHp() + "/";
 				str += player.getAtt() + "/";
-				str += player.isParty();
+				str += player.isParty() + "/";
+				str += player.getState();
 				if(player.getWeapon() != null) {
 					str += "/" + player.getWeapon().getName();
 					str += "/" + player.getWeapon().getPower();
@@ -65,8 +65,6 @@ public class FileManager {
 				else
 					str += "\n";
 			}
-			
-			str += targetInven.size() + "\n";
 			
 			for(Item item : targetInven) {
 				str += item.getName() + "/";
@@ -88,7 +86,64 @@ public class FileManager {
 		}
 	}
 	
-	public void load() {
+	public void load() throws IOException {
+		ArrayList<User> userList = UserManager.getInstance().getUserList();
+		int n = 1;
+		while(true) {
+			String fileName = "userData[" + n + "]";
+			file = new File(fileName);
+			
+			if(file.exists()) {
+				try {
+					fr = new FileReader(fileName);
+					br = new BufferedReader(fr);
+					
+					String userData = br.readLine();
+					String[] uda = userData.split("/");
+					
+					User tempUser = new User(Integer.parseInt(uda[0]), uda[1], uda[2], Integer.parseInt(uda[4]));
+					ArrayList<Player> tempCharacter = new ArrayList<>();
+					ArrayList<Item> tempInven = new ArrayList<>();
+					
+					// 캐릭터들 불러오기
+					while(true) {
+						String playerData = br.readLine();
+						
+						if(playerData == null)
+							break;
+						
+						String[] pda = playerData.split("/");
+						
+						int isParty = 0;
+						if(pda[3].equals("true")) 
+							isParty = 1;
+						else
+							isParty = 2;
+						
+						Player tempPlayer = new Player(pda[0], Integer.parseInt(pda[1]), Integer.parseInt(pda[2]), isParty, pda[4]);
+						
+						tempCharacter.add(tempPlayer);
+					}
+					
+					// 장비 불러오기
+					while(true) {
+						String itemData = br.readLine();
+						String[] ida = itemData.split("/");
+						
+						int isEquip = 0;
+						if(ida[3].equals("true")) 
+							isEquip = 1;
+						else
+							isEquip = 2;
+						
+					}
+					
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			n++;
+		}
 		
 	}
 

@@ -8,6 +8,11 @@ public class StageTitle extends Stage {
 	}
 	
 	@Override
+	public void dataManager() {
+		FileManager.getInstance().save();		
+	}
+	
+	@Override
 	public boolean update(User user) {
 		System.out.println("====[TEXT RPG]====");
 		System.out.println("1.로그인 2.회원가입");

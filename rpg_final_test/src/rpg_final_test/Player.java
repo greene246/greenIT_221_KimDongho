@@ -6,8 +6,9 @@ public class Player extends Unit{
 	
 	private boolean party;
 	
-	public Player(String name, int hp, int att, int party) {
+	public Player(String name, int hp, int att, int party, String state) {
 		super(name, hp, att);
+		this.state = state;
 		if(party == 1)
 			this.party = true;
 		else if(party == 2)
@@ -29,7 +30,15 @@ public class Player extends Unit{
 	public void setParty(boolean party) {
 		this.party = party;
 	}
-
+	
+	public void heal() {
+		this.hp = this.maxHp;
+	}
+	
+	public String getState() {
+		return this.state;
+	}
+	
 	public String toString() {
 		String str = "";
 		if(weapon != null)

@@ -18,6 +18,17 @@ public class User {
 		this.inventory = new ArrayList<>();
 	}
 	
+	public User(int num, String id, String pw, int money) {
+		this.num = num;
+		this.id = id;
+		this.pw = pw;
+		this.money = money;
+	}
+	
+	public void setCharacter(ArrayList<Player> character) {
+		this.character = character;
+	}
+
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}

@@ -18,13 +18,14 @@ public abstract class Unit {
 	
 	public String attackMonster(Unit target, Player attacker) {
 		String str = "";
-		target.hp -= this.att;
 		if(attacker.getWeapon() == null) {
+			target.hp -= this.att;
 			str = String.format("[%s] 이(가) [%s] 을(를) [%d]의 대미지로 공격!", this.name, target.getName(), this.att);
 		}
-		else
+		else {
+			target.hp -= (this.att + attacker.getWeapon().getPower());
 			str = String.format("[%s] 이(가) [%s] 을(를) [%d + %d]의 대미지로 공격!", this.name, target.getName(), this.att, attacker.getWeapon().getPower());
-			
+		}
 		if(target.hp <= 0) {
 			str = String.format("[%s] 을(를) 처치하였습니다", target.name);
 			target.hp = 0;

@@ -9,8 +9,16 @@ public class StageLobby extends Stage {
 	}
 	
 	@Override
+	public void dataManager() {
+		FileManager.getInstance().save();
+	}
+	
+	@Override
 	public boolean update(User user) {
 		while(true) {
+			MyUnit.getInstance().updateParty(user);
+			dataManager();
+			heal(user);
 			System.out.println("========[LOBBY]======== [" + user.getMoney() + "G]");
 			System.out.println("1.[나의 캐릭터 관리] 2.[던전입장]\n3.[상점] 4.[창고] 0.뒤로가기");
 			int sel = GameManager.sc.nextInt();
@@ -36,7 +44,12 @@ public class StageLobby extends Stage {
 			else
 				continue;
 		}
-
+	}
+	
+	private void heal(User user) {
+		for(Player player : user.getCharacter()) {
+			player.heal();
+		}
 	}
 	
 	

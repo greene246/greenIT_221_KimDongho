@@ -60,10 +60,10 @@ public class UserManager {
 	}
 	
 	private void defaultUnit(User user) {
-		user.addChar(new Player("전사", 1000, 45, 1));
-		user.addChar(new Player("마법사", 700, 55, 1));
-		user.addChar(new Player("힐러", 900, 50, 1));
-		user.addChar(new Player("도적", 600, 60, 1));
+		user.addChar(new Player("히어로", 1000, 45, 1, "전사"));
+		user.addChar(new Player("위자드", 700, 55, 1, "마법사"));
+		user.addChar(new Player("보우마스터", 900, 50, 1, "궁수"));
+		user.addChar(new Player("섀도어", 600, 60, 1, "도적"));
 	}
 	
 	public boolean UserCheck(String id, String pw) {

@@ -6,7 +6,7 @@ public class MyUnit {
 	private static MyUnit instance = new MyUnit();
 	
 	private ArrayList<Player> legend = new ArrayList<>();
-	public Player[] partyList;
+	private Player[] partyList;
 	
 	private MyUnit() {}
 	
@@ -15,9 +15,10 @@ public class MyUnit {
 	}
 	
 	public ArrayList<Player> legend() {
-		this.legend.add(new Player("해적", 1000, 100, 2));
-		this.legend.add(new Player("궁수", 700, 130, 2));
-		this.legend.add(new Player("창기사", 1200, 80, 2));
+		this.legend.add(new Player("창기사", 1200, 80, 2, "전사"));
+		this.legend.add(new Player("비숍", 1000, 100, 2, "마법사"));
+		this.legend.add(new Player("헌터", 900, 110, 2, "궁수"));
+		this.legend.add(new Player("팬텀", 700, 130, 2, "도적"));
 		
 		return legend;
 	}
@@ -37,7 +38,7 @@ public class MyUnit {
 		}
 	}
 	
-	private void updateParty(User user) {
+	public void updateParty(User user) {
 		partyList = new Player[4];
 		int n = 0;
 		for(int i=0; i<user.getCharacter().size(); i++) {
@@ -50,7 +51,7 @@ public class MyUnit {
 	
 	public void printParty() {
 		for(int i=0; i<partyList.length; i++) {
-			String str = "[" + (i+1) + "] " + partyList[i].toPrintData();
+			String str = "[" + (i+1) + "] " + partyList[i].toString();
 			System.out.println(str);
 		}
 	}
@@ -174,6 +175,10 @@ public class MyUnit {
 			else
 				System.out.println("장착할 아이템이 없습니다.");	
 		}
+	}
+
+	public Player[] getPartyList() {
+		return partyList;
 	}
 	
 }

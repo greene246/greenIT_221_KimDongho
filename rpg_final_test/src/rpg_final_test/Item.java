@@ -13,6 +13,16 @@ public  class Item {
 		this.equiped = false;
 	}
 	
+	public Item(String name, int power, int price, int equiped) {
+		this.name = name;
+		this.power = power;
+		this.price = price;
+		if(equiped == 1)
+			this.equiped = true;
+		else
+			this.equiped = false;
+	}
+	
 	public String getName() {
 		return name;
 	}
