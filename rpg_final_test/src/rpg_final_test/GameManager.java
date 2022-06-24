@@ -38,6 +38,7 @@ public class GameManager {
 			boolean run = true;
 			while(true) {
 				run = stage.update(user);
+				FileManager.getInstance().save();
 				if(run == false)
 					break;
 			}

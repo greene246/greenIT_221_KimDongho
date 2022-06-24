@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class UserManager {
 	private ArrayList<User> userList;
+	private boolean userJoin;
 	
 	private static UserManager instance = new UserManager();
 	
@@ -41,6 +42,7 @@ public class UserManager {
 	}
 	
 	public boolean Joinin(String id, String pw) {
+		this.userJoin = false;
 		if(UserDupl(id)) {
 			int userCode = makeRanCode();
 			User user = new User(userCode, id, pw);
@@ -48,6 +50,7 @@ public class UserManager {
 			userList.add(user);
 			defaultUnit(user);
 			System.out.println("[회원가입 되었습니다.]\n");
+			this.userJoin = true;
 			return true;
 		}
 		else {
@@ -72,5 +75,14 @@ public class UserManager {
 		}
 		return false;
 	}
+	
+	public boolean getUserJoin() {
+		return userJoin;
+	}
+
+	public ArrayList<User> getUserList() {
+		return userList;
+	}
+	
 	
 }
