@@ -8,7 +8,8 @@ public class MyUnit {
 	private ArrayList<Player> legend = new ArrayList<>();
 	private Player[] partyList;
 	
-	private MyUnit() {}
+	private MyUnit() {
+	}
 	
 	public static MyUnit getInstance() {
 		return instance;
@@ -68,35 +69,44 @@ public class MyUnit {
 			if(sel <= -1 || sel >= partyList.length)
 				return;
 			
-			int range = remainUnit(user) - 1;
+			Player[] temp = remainUnit(user);
+			for(int i=0; i<temp.length; i++) {
+				System.out.println((i+1) + temp[i].toPrintData());
+			}
 			System.out.print("새로 파티에 들어갈 유닛 번호 : ");
 			
-			int change = GameManager.sc.nextInt() + 4;
+			int change = GameManager.sc.nextInt() -1;
 			
-			if(change <= -1 || sel >= range)
-				return;
+			partyList[sel].setParty(false);
+			temp[change].setParty(true);
+			Player temp1;
 			
-			Player target = partyList[sel];
-			target.setParty(false);
-			Player newParty = user.getCharacter().get(change + 4);
-			newParty.setParty(true);
+			for(int i =0; i < user.getCharacter().size(); i ++) {
+				if(user.getCharacter().get(i).equals(temp[change])) {
+					user.getCharacter().get(sel).setParty(false);
+					temp1 = user.getCharacter().get(i);
+					temp1.setParty(true);
+				}
+			}
+			
+			updateParty(user);
 			System.out.println("교체되었습니다.");
 			printParty();
 		}
 		else System.out.println("유닛 수가 부족합니다.");
 	}
 	
-	private int remainUnit(User user) {
+	private Player[] remainUnit(User user) {
 		System.out.println("========[UNIT]========");
-		int n = 1;
+		Player[] temp = new Player [user.getCharacter().size() - 4];
+		int n = 0;
 		for(int i=0; i<user.getCharacter().size(); i++) {
 			if(!user.getCharacter().get(i).isParty()) {
-				System.out.println("[" + n + "] " + user.getCharacter().get(i).toPrintData());
-				n++;
+				temp[n] = user.getCharacter().get(i); 
 			}
 		}
 		System.out.println("======================");
-		return n;
+		return temp;
 	}
 	
 	private void addUnit(User user) {
@@ -130,17 +140,21 @@ public class MyUnit {
 	}
 	
 	private void removeChar(User user) {
-		int range = remainUnit(user) - 1;
-		System.out.println(range);
+		Player[] temp = remainUnit(user);
+		System.out.println(temp.length);
 		System.out.print("삭제할 유닛 번호 : ");
 		
 		int sel = GameManager.sc.nextInt() - 1;
 		
-		if(sel <= -1 || sel >= range) 
+		if(sel <= -1 || sel >= temp.length) 
 			return;
 		
-		System.out.println("[" + user.getCharacter().get(sel + 4).getName() + "] 가 방출되었습니다");
-		user.getCharacter().remove(user.getCharacter().get(sel + 4));
+		for(int i=0; i<user.getCharacter().size(); i++) {
+			if(user.getCharacter().get(i).equals(temp[sel])) {
+				System.out.println("[" + user.getCharacter().get(i).getName() + "] 가 방출되었습니다");
+				user.getCharacter().remove(i);
+			}
+		}
 	}
 	
 	private void equipment(User user) {

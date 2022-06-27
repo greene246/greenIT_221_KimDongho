@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class StageBattle extends Stage {
 	private MonsterManager monsterInstance = MonsterManager.getInstance();
 	private int dungeonStage = 1;
+	private User battleUser;
 	
 	private Player[] party;
 	
@@ -20,7 +21,9 @@ public class StageBattle extends Stage {
 	
 	@Override
 	public boolean update(User user) {
-		dataManager().save();
+		if(dungeonStage == 1) {
+			this.battleUser = user;
+		}
 		party = MyUnit.getInstance().getPartyList();
 		System.out.printf("========[DUNGEON]========[Stage : %d]\n", dungeonStage);
 		System.out.println("1.앞으로 나가아기 2.마을로 돌아가기");
@@ -78,15 +81,15 @@ public class StageBattle extends Stage {
 				}
 				turn = turn == 2 ? 0 : 1;
 				
-				if(battleOver(user).equals("GAMEOVER")) 
+				if(battleOver().equals("GAMEOVER")) 
 					return true;
-				else if(battleOver(user).equals("CONTINUE"))
+				else if(battleOver().equals("CONTINUE"))
 					return false;
 			}
 		}
 	}
 	
-	private String battleOver(User user) {
+	private String battleOver() {
 		int playerDead = 0;
 		for(int i=0; i<party.length; i++) {
 			if(party[i].getHp() <= 0) {
