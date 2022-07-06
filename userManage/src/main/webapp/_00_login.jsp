@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	
     <title>LOG_IN</title>
 </head>
 <body>
@@ -15,7 +18,7 @@
     <form method="post" action="_00_loginPro.jsp">
         <div class="container">
             <input type="text" name="id" id="id" placeholder="id"><br>
-            <input type="text" name="pw" id="pw" placeholder="password"><br>
+            <input type="password" name="pw" id="pw" placeholder="password"><br>
             <span class="warning"><br>id / pw 를 입력해주세요</span><br>
             <input type="button" name="join" id="join" value="회원가입" onclick="location.href='_01_agree.jsp'">
             <input type="button" name="login" id="login" value="로그인" onclick="checkLogVal(form)">

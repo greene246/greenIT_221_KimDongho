@@ -28,11 +28,11 @@ function checkJoinVal(form){
 }
 
 function checkLogVal(form){
-	if(id.value == "" || pw.value){
+	if(id.value === "" || pw.value === ""){
 		warning.show();
 	}
 	else{
-		form.submit;
+		form.submit();
 	}
 	
 }

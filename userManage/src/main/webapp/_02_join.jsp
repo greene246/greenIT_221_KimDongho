@@ -14,34 +14,34 @@
     <h1>GREEN</h1>
     <form method="post" action="_02_joinPro.jsp">
         <div class="contents">
-            <input class="req" type="text" placeholder="id">
+            <input class="req" type="text" name="id" placeholder="id">
             <span class="warning"><br>필수값 입력 바랍니다.</span>
             <div>
-                <input class="req" type="password" placeholder="password">
+                <input class="req" type="password" name="pw" placeholder="password">
             <span class="warning"><br>필수값 입력 바랍니다.</span><br>
-                <input class="req" type="password" placeholder="password">
+                <input class="req" type="password" name="pw" placeholder="password">
             <span class="warning"><br>필수값 입력 바랍니다.</span>
             </div>
-            <input class="req" type="text" placeholder="name">
+            <input class="req" type="text" name="name" placeholder="name">
             <span class="warning"><br>필수값 입력 바랍니다.</span>
             <div>
-                <input class="req" type="text" pattern="[0-9]{4}" placeholder="생년" title="#### 출생년도 4자리를 입력해주세요.">
-                <input class="req" type="number" min="1" max="12" placeholder="월">
-                <input class="req" type="number" min="1" max="31" placeholder="일">
+                <input class="req" type="text" name="year" pattern="[0-9]{4}" placeholder="생년" title="#### 출생년도 4자리를 입력해주세요.">
+                <input class="req" type="number" name="month" min="1" max="12" placeholder="월">
+                <input class="req" type="number" name="day" min="1" max="31" placeholder="일">
             <span class="warning"><br>필수값 입력 바랍니다.</span>
             </div>
-            <select>
+            <select name="gender">
                 <option value="none">성별</option>
                 <option value="man">남</option>
                 <option value="woman">여</option>
             </select>
-            <input class="req" type="email" placeholder="email">
+            <input class="req" type="email" name="email" placeholder="email">
             <span class="warning"><br>필수값 입력 바랍니다.</span>
             <div>
-                <select>
+                <select name="country">
                     <option value="kor">대한민국 +82</option>
                 </select>
-                <input class="req" type="text" id="mobile" name="mobile" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="mobile" title="###-####-####">
+                <input class="req" type="text" id="mobile" name="mobile" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="000-0000-0000" title="###-####-####">
                 <input type="button" value="인증" onclick="checkMobile(form)">
             <span class="warning"><br>필수값 입력 바랍니다.</span>
             </div>

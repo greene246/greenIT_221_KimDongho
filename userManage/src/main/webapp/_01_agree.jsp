@@ -65,7 +65,7 @@
             <div class="warning">
                 <span>이용약관과 개인정보 수집 및 이용에 대한 안내 모두 동의해주세요.</span><br><br>
             </div>
-            <input type="button" onclick="location.href='index.html'" value="취소">
+            <input type="button" onclick="location.href='_00_login.jsp'" value="취소">
             <input type="button" onclick="checkVal(form)" value="확인">
         </div>
     </form>

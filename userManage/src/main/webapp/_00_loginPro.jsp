@@ -10,30 +10,33 @@
 </head>
 <body>
 <%
+	// 로그인이 되는지 안되는지 체크
+	
 	request.setCharacterEncoding("utf-8");
-	// response.setCharacterEncoding("utf-8");
+	response.setCharacterEncoding("utf-8");
 	
 	
 	// 전달된 파라미터 값 가져오기
-	String name = request.getParameter("name");
-	System.out.println(name);
+	String id = request.getParameter("id");
+	String pw = request.getParameter("pw");
 	
 	// UserDAO를 통해 addUser(UserDTO userDto);
 	UserDAO dao = UserDAO.getInstance();
 	// UserDTO user = new UserDTO(name);
 	// dao.addUser(user);
 	
+	UserDTO tempUser = dao.getUser(new UserDTO(id, pw));
+	
 	// UserDAO를 통해 getUser
-	UserDTO reulst = dao.getUser(name);
 	
 	// 파라미터 값을 식별하고,
 	// ㄴ다음 로직에 대한 처리를 분리할 수 있음
 	String url = "";
-	if(name.equals("김동호")){
-		url = "test1.jsp";
+	if(tempUser == null){
+		url = "_03_main.jsp";
 	}
 	else{
-		url = "test2.jsp";
+		url = "_00_login.jsp";
 	}
 	
 	// 1. 단순 페이지 이동
