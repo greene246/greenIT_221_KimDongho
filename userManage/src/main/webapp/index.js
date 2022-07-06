@@ -15,11 +15,28 @@ function checkVal(form) {
 }
 
 function checkJoinVal(form){
+	let cnt = 0;
     for(let i=0; i<req.length; i++){
         if(req.get(i).value === "")
             warning.show();
+		else{
+			cnt ++;
+		}
     }
+	if(cnt === req.length)
+		form.submit();
 }
+
+function checkLogVal(form){
+	if(id.value == "" || pw.value){
+		warning.show();
+	}
+	else{
+		form.submit;
+	}
+	
+}
+
 
 function checkMobile(form) {
     const val = form.mobile.value;
