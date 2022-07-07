@@ -31,7 +31,7 @@ public class UserDAO {	// Data Access Object
 	ResultSet rs = null;
 	
 	public void addUser(UserDTO userDto) {
-//		conn = DBManager.getConnection("firstJsp");
+		conn = DBManager.getConnection("firstJsp");
 		
 		Date date = new Date(userDto.getYear()-1900, userDto.getMonth(), userDto.getDay());
 		Timestamp birthDate = new Timestamp(date.getTime());
@@ -39,11 +39,11 @@ public class UserDAO {	// Data Access Object
 		try {
 			String sql = "insert into users values(?, ? ,?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userDto.getName());
+			pstmt.setString(1, userDto.getId());
 			pstmt.setString(2, userDto.getPw());
 			pstmt.setString(3, userDto.getName());
-			pstmt.setString(4, userDto.getGender());
-			pstmt.setTimestamp(5, birthDate);
+			pstmt.setTimestamp(4, birthDate);
+			pstmt.setString(5, userDto.getGender());
 			pstmt.setString(6, userDto.getEmail());
 			pstmt.setString(7, userDto.getCountry());
 			pstmt.setString(8, userDto.getMobile());
@@ -51,6 +51,7 @@ public class UserDAO {	// Data Access Object
 			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("데이터 연동 실패");
 		} finally {
 			try {
 				conn.close();
@@ -63,7 +64,6 @@ public class UserDAO {	// Data Access Object
 	public UserDTO getUser(UserDTO tempUser) {
 		UserDTO user = null;
 		conn = DBManager.getConnection("firstJsp");
-//		conn = DBManager.getConnection();
 		
 		try {
 			String sql = "select * from users where id = ?";
@@ -95,7 +95,7 @@ public class UserDAO {	// Data Access Object
 		UserDTO targetUser = getUser(user);
 		
 		// targetUser가 null이 아닐 시 받아온 user를 추가
-		if(targetUser != null) {
+		if(targetUser == null) {
 			addUser(user);
 			return true;
 		}

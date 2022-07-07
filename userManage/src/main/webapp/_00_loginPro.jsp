@@ -15,7 +15,6 @@
 	request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
 	
-	
 	// 전달된 파라미터 값 가져오기
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
@@ -35,20 +34,19 @@
 	// ㄴ다음 로직에 대한 처리를 분리할 수 있음
 	String url = "";
 	if(tempUser != null){
-		%>
-		<script>
-		sessionStorage.setItem("id", tempUser.getId());
-		</script>
-		<%
+		session.setAttribute("log", tempUser.getId());
 		url = "_03_main.jsp";
 	}
 	else{
 		url = "_00_login.jsp";
 	}
 	
+	response.sendRedirect(url);
+	
 	// 1. 단순 페이지 이동
 	// http://localhost:8081/webProject/test1.jsp
-	response.sendRedirect(url);
+	// response.sendRedirect(url);
+	
 	
 	// 2. 디스패처를 활용한 포워딩
 	// http://localhost:8081/webProject/indexPro.jsp?name=
