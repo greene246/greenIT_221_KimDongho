@@ -1,8 +1,23 @@
 package user;
 
 public class UserDTO {
+	
 	private String id, pw, name, gender, country, email, mobile;
-	private int year, month, day;
+	private int year, month, day, userCode;
+	
+	public UserDTO(String id, String pw, String name, int year, int month, int day, String gender, String email, String country, String mobile, int userCode) {
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.gender = gender;
+		this.country = country;
+		this.mobile = mobile;
+		this.email = email;
+		this.userCode = userCode;
+	}
 	
 	public UserDTO(String id, String pw, String name, int year, int month, int day, String gender, String email, String country, String mobile) {
 		this.id = id;
@@ -101,6 +116,15 @@ public class UserDTO {
 	public void setDay(int day) {
 		this.day = day;
 	}
+
+	public int getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(int userCode) {
+		this.userCode = userCode;
+	}
+	
 	
 	
 }

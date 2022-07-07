@@ -26,15 +26,13 @@
 	
 	UserDTO user = new UserDTO(id, pw);
 	
-	UserDTO tempUser = dao.getUser(user);
-	
 	// UserDAO를 통해 getUser
 	
 	// 파라미터 값을 식별하고,
 	// ㄴ다음 로직에 대한 처리를 분리할 수 있음
 	String url = "";
-	if(tempUser != null){
-		session.setAttribute("log", tempUser.getId());
+	if(dao.loginUser(user)){
+		session.setAttribute("log", user.getId());
 		url = "_03_main.jsp";
 	}
 	else{

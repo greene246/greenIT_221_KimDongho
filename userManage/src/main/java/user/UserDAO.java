@@ -5,11 +5,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.Random;
 
 import util.DBManager;
 
 public class UserDAO {	// Data Access Object
 	
+	private Random ran = new Random();
 	// Singletone Pattern
 	
 	private UserDAO() {
@@ -37,21 +39,22 @@ public class UserDAO {	// Data Access Object
 		Timestamp birthDate = new Timestamp(date.getTime());
 		
 		try {
-			String sql = "insert into users values(?, ? ,?, ?, ?, ?, ?, ?)";
+			String sql = "insert into users values(?, ?, ? ,? , ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userDto.getId());
-			pstmt.setString(2, userDto.getPw());
-			pstmt.setString(3, userDto.getName());
-			pstmt.setTimestamp(4, birthDate);
-			pstmt.setString(5, userDto.getGender());
-			pstmt.setString(6, userDto.getEmail());
-			pstmt.setString(7, userDto.getCountry());
-			pstmt.setString(8, userDto.getMobile());
+			pstmt.setInt(1, createNum());
+			pstmt.setString(2, userDto.getId());
+			pstmt.setString(3, userDto.getPw());
+			pstmt.setString(4, userDto.getName());
+			pstmt.setTimestamp(5, birthDate);
+			pstmt.setString(6, userDto.getGender());
+			pstmt.setString(7, userDto.getEmail());
+			pstmt.setString(8, userDto.getCountry());
+			pstmt.setString(9, userDto.getMobile());
 			
 			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("데이터 연동 실패");
+			System.out.println("유저추가 실패");
 		} finally {
 			try {
 				conn.close();
@@ -59,6 +62,41 @@ public class UserDAO {	// Data Access Object
 			} catch (Exception e2) {
 			}
 		}
+	}
+	
+	public int createNum() {
+		while(true) {
+			int ranNum = ran.nextInt(8999)+1000;
+			if(numDup(ranNum) == 0) {
+				return ranNum;
+			}
+		}
+	}
+	
+	public int numDup(int ranNum) {
+		int num = 0;
+		conn = DBManager.getConnection("firstJsp");
+		
+		try {
+			String sql = "select * from users where code = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ranNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				num = Integer.parseInt(rs.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				pstmt.close();
+				rs.close();
+			} catch (Exception e2) {
+			}
+		}
+		return num;
 	}
 	
 	public UserDTO getUser(UserDTO tempUser) {
@@ -72,8 +110,8 @@ public class UserDAO {	// Data Access Object
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				String targetId = rs.getString(1);
-				String targetPw= rs.getString(2);
+				String targetId = rs.getString(2);
+				String targetPw= rs.getString(3);
 				user = new UserDTO(targetId, targetPw);
 			}
 		} catch (Exception e) {
@@ -87,6 +125,38 @@ public class UserDAO {	// Data Access Object
 			}
 		}
 		return user;
+	}
+	
+	public boolean loginUser(UserDTO tempUser) {
+		UserDTO user = null;
+		conn = DBManager.getConnection("firstJSP");
+		
+		try {
+			String sql = "select * from users where id = ? and pw = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tempUser.getId());
+			pstmt.setString(2, tempUser.getPw());
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				String targetId = rs.getString(2);
+				String targetPw= rs.getString(3);
+				
+				if(targetId.equals(tempUser.getId()) && targetPw.equals(tempUser.getPw())) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				pstmt.close();
+				rs.close();
+			} catch (Exception e2) {
+			}
+		}
+		return false;
 	}
 	
 	public boolean userDupl(UserDTO user) {
