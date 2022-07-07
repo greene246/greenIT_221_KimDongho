@@ -31,7 +31,7 @@ public class UserDAO {	// Data Access Object
 	ResultSet rs = null;
 	
 	public void addUser(UserDTO userDto) {
-		conn = DBManager.getConnection("firstJsp");
+//		conn = DBManager.getConnection("firstJsp");
 		
 		Date date = new Date(userDto.getYear()-1900, userDto.getMonth(), userDto.getDay());
 		Timestamp birthDate = new Timestamp(date.getTime());
@@ -63,15 +63,18 @@ public class UserDAO {	// Data Access Object
 	public UserDTO getUser(UserDTO tempUser) {
 		UserDTO user = null;
 		conn = DBManager.getConnection("firstJsp");
+//		conn = DBManager.getConnection();
+		
 		try {
-			String sql = "select * from testUser where id = ?";
-			pstmt.setString(1, tempUser.getId());
+			String sql = "select * from users where id = ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tempUser.getId());
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
-				String result = rs.getString(1);
-				// user = new UserDTO(result);
+				String targetId = rs.getString(1);
+				String targetPw= rs.getString(2);
+				user = new UserDTO(targetId, targetPw);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

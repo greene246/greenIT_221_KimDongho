@@ -25,15 +25,21 @@
 				</tr>
 			</thead>
 			<tbody>
+			<%for(int i=0; i<10; i++){
+				BoardDTO board = new BoardDTO();
+			}
+				%>
 				<tr>
-					<th>no</th>
-					<th>code</th>
-					<th>title</th>
-					<th>viewCnt</th>
-					<th>likeCnt</th>
-					<th>createdAt</th>
-					<th>modifinedAt</th>
+					<td><%=no %></td>
+					<td><%=code %></td>
+					<td><%=title %></td>
+					<td><%=viewCnt %></td>
+					<td><%=likeCnt %></td>
+					<td><%=createdAt %></td>
+					<td><%=modifiedAt %></td>
 				</tr>
+				<%
+				%>
 			</tbody>
 		</table>
 	</div>

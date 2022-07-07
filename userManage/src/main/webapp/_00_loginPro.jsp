@@ -25,14 +25,21 @@
 	// UserDTO user = new UserDTO(name);
 	// dao.addUser(user);
 	
-	UserDTO tempUser = dao.getUser(new UserDTO(id, pw));
+	UserDTO user = new UserDTO(id, pw);
+	
+	UserDTO tempUser = dao.getUser(user);
 	
 	// UserDAO를 통해 getUser
 	
 	// 파라미터 값을 식별하고,
 	// ㄴ다음 로직에 대한 처리를 분리할 수 있음
 	String url = "";
-	if(tempUser == null){
+	if(tempUser != null){
+		%>
+		<script>
+		sessionStorage.setItem("id", tempUser.getId());
+		</script>
+		<%
 		url = "_03_main.jsp";
 	}
 	else{
@@ -41,11 +48,11 @@
 	
 	// 1. 단순 페이지 이동
 	// http://localhost:8081/webProject/test1.jsp
-	// response.sendRedirect(url);
+	response.sendRedirect(url);
 	
 	// 2. 디스패처를 활용한 포워딩
 	// http://localhost:8081/webProject/indexPro.jsp?name=
-	request.getRequestDispatcher(url).forward(request, response);
+	// request.getRequestDispatcher(url).forward(request, response);
 	%>
 </body>
 </html>
