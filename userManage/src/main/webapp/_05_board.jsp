@@ -13,7 +13,7 @@
 	<h1>GREEN BOARD</h1>
 	<div class="boardListContainer">
 		<table border="1">
-			<thead>
+			<thead>	
 				<tr>
 					<th>no</th>
 					<th>code</th>
