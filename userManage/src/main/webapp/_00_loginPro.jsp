@@ -32,7 +32,7 @@
 	// ㄴ다음 로직에 대한 처리를 분리할 수 있음
 	String url = "";
 	if(dao.loginUser(user)){
-		session.setAttribute("log", user.getId());
+		session.setAttribute("log", user.getUserCode());
 		url = "_03_main.jsp";
 	}
 	else{

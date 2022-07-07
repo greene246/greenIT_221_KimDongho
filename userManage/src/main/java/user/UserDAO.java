@@ -35,21 +35,16 @@ public class UserDAO {	// Data Access Object
 	public void addUser(UserDTO userDto) {
 		conn = DBManager.getConnection("firstJsp");
 		
+		userDto.setUserCode(createNum());
+		
 		Date date = new Date(userDto.getYear()-1900, userDto.getMonth(), userDto.getDay());
 		Timestamp birthDate = new Timestamp(date.getTime());
 		
 		try {
-			String sql = "insert into users values(?, ?, ? ,? , ?, ?, ?, ?, ?)";
+			String sql = String.format("insert into users values(%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", userDto.getUserCode(), userDto.getId(), userDto.getPw()
+			, userDto.getName(), birthDate.toString(), userDto.getGender(), userDto.getEmail(), userDto.getCountry(), userDto.getMobile());
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, createNum());
-			pstmt.setString(2, userDto.getId());
-			pstmt.setString(3, userDto.getPw());
-			pstmt.setString(4, userDto.getName());
-			pstmt.setTimestamp(5, birthDate);
-			pstmt.setString(6, userDto.getGender());
-			pstmt.setString(7, userDto.getEmail());
-			pstmt.setString(8, userDto.getCountry());
-			pstmt.setString(9, userDto.getMobile());
 			
 			pstmt.execute();
 		} catch (Exception e) {
@@ -88,13 +83,6 @@ public class UserDAO {	// Data Access Object
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-				pstmt.close();
-				rs.close();
-			} catch (Exception e2) {
-			}
 		}
 		return num;
 	}
@@ -132,7 +120,7 @@ public class UserDAO {	// Data Access Object
 		conn = DBManager.getConnection("firstJSP");
 		
 		try {
-			String sql = "select * from users where id = ? and pw = ?";
+			String sql = "select * from users where id = ? and password = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, tempUser.getId());
 			pstmt.setString(2, tempUser.getPw());
