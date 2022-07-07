@@ -72,3 +72,8 @@ $('#checkAll').click(e => {
         }
     }
 })
+
+function checkCodeVal(){
+	
+}
+

@@ -36,6 +36,12 @@ public class UserDTO {
 		this.id = id;
 		this.pw = pw;
 	}
+	
+	public UserDTO(int userCode, String id, String pw){
+		this.userCode = userCode;
+		this.id = id;
+		this.pw = pw;
+	}
 
 	public String getName() {
 		return name;

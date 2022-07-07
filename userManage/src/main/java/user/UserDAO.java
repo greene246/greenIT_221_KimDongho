@@ -35,7 +35,10 @@ public class UserDAO {	// Data Access Object
 	public void addUser(UserDTO userDto) {
 		conn = DBManager.getConnection("firstJsp");
 		
-		userDto.setUserCode(createNum());
+		int uc = createNum();
+		userDto.setUserCode(uc);
+		System.out.println(uc);
+		System.out.println(userDto.getUserCode());
 		
 		Date date = new Date(userDto.getYear()-1900, userDto.getMonth(), userDto.getDay());
 		Timestamp birthDate = new Timestamp(date.getTime());
@@ -45,7 +48,6 @@ public class UserDAO {	// Data Access Object
 			, userDto.getName(), birthDate.toString(), userDto.getGender(), userDto.getEmail(), userDto.getCountry(), userDto.getMobile());
 			
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,7 +117,7 @@ public class UserDAO {	// Data Access Object
 		return user;
 	}
 	
-	public boolean loginUser(UserDTO tempUser) {
+	public UserDTO loginUser(UserDTO tempUser) {
 		UserDTO user = null;
 		conn = DBManager.getConnection("firstJSP");
 		
@@ -127,11 +129,14 @@ public class UserDAO {	// Data Access Object
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
+				int targetCode = Integer.parseInt(rs.getString(1));
 				String targetId = rs.getString(2);
-				String targetPw= rs.getString(3);
+				String targetPw = rs.getString(3);
 				
 				if(targetId.equals(tempUser.getId()) && targetPw.equals(tempUser.getPw())) {
-					return true;
+					tempUser.setUserCode(targetCode);
+					user = tempUser;
+					return user;
 				}
 			}
 		} catch (Exception e) {
@@ -144,7 +149,7 @@ public class UserDAO {	// Data Access Object
 			} catch (Exception e2) {
 			}
 		}
-		return false;
+		return user;
 	}
 	
 	public boolean userDupl(UserDTO user) {
@@ -160,5 +165,35 @@ public class UserDAO {	// Data Access Object
 		else {
 			return false;
 		}
+	}
+	
+	public UserDTO getUser(int userCode) {
+		UserDTO user = null;
+		conn = DBManager.getConnection("firstJsp");
+		
+		try {
+			String sql = "select * from users where `code` = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userCode);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				int targetCode = Integer.parseInt(rs.getString(1));
+				String targetId = rs.getString(2);
+				String targetPw= rs.getString(3);
+				user = new UserDTO(targetCode, targetId, targetPw);
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				pstmt.close();
+				rs.close();
+			} catch (Exception e2) {
+			}
+		}
+		return user;
 	}
 }

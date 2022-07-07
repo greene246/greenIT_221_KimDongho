@@ -1,11 +1,23 @@
 package board;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BoardDTO {
 	private String title, contents;
 	private int code, userCode, viewCnt, likeCnt;
-	private Date createdAt, modefiedAt;
+	private Timestamp createdAt, modifiedAt;
+	
+	public BoardDTO(int code, int userCode, String title, String contents, int viewCnt, int likeCnt, Timestamp createdAt, Timestamp modifiedAt) {
+		this.code = code;
+		this.userCode = userCode;
+		this.title = title;
+		this.contents = contents;
+		this.viewCnt = viewCnt;
+		this.likeCnt = likeCnt;
+		this.createdAt = createdAt;
+		this.modifiedAt = modifiedAt;
+	}
 	
 	public BoardDTO(String title, String contents, int userCode){
 		this.title = title;
@@ -13,7 +25,8 @@ public class BoardDTO {
 		this.userCode = userCode;
 	}
 	
-	public BoardDTO(String title, String contents) {
+	public BoardDTO(int code, String title, String contents) {
+		this.code = code;
 		this.title = title;
 		this.contents = contents;
 	}
@@ -66,20 +79,20 @@ public class BoardDTO {
 		this.likeCnt = likeCnt;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getModefiedAt() {
-		return modefiedAt;
+	public Timestamp getModifiedAt() {
+		return modifiedAt;
 	}
 
-	public void setModefiedAt(Date modefiedAt) {
-		this.modefiedAt = modefiedAt;
+	public void setModifiedAt(Timestamp modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
-	
+
 }

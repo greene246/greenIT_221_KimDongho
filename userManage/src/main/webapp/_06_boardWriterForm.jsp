@@ -16,7 +16,7 @@
 			<input type="text" name="title" id="title" placeholder="title" required>
 			<textarea name="contents" placeholder="contents text" required></textarea><br>
 			<input type="button" value="뒤로가기" onclick="location.href='_05_board.jsp'">
-			<input type="submit" value="글쓰기" onclick="loaction.href='_06_boardWriterFormPro.jsp'">
+			<input type="submit" value="글쓰기">
 		</form>
 	</div>
 </body>

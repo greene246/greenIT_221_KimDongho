@@ -1,3 +1,6 @@
+<%@page import="board.BoardDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,23 +28,34 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%for(int i=0; i<10; i++){
-				BoardDTO board = new BoardDTO();
-			}
+			<%
+			BoardDAO dao = BoardDAO.getInstance();
+			
+			ArrayList<BoardDTO> boards = dao.getBoard();
+			
+			for(int i=0; i<boards.size(); i++){
+				String modify = "";
+				BoardDTO board = boards.get(i);
+				if(board.getModifiedAt() != null){
+					modify = board.getModifiedAt().toString();
+				}
 				%>
 				<tr>
-					<td><%=no %></td>
-					<td><%=code %></td>
-					<td><%=title %></td>
-					<td><%=viewCnt %></td>
-					<td><%=likeCnt %></td>
-					<td><%=createdAt %></td>
-					<td><%=modifiedAt %></td>
+					<td><%=i+1 %></td>
+					<td><%=board.getCode() %></td>
+					<td><a href="_07_boardView.jsp?code=<%=board.getCode()%>"><%=board.getTitle()%></a></td>
+					<td><%=board.getViewCnt()%></td>
+					<td><%=board.getLikeCnt() %></td>
+					<td><%=board.getCreatedAt() %></td>
+					<td><%=modify %></td>
 				</tr>
 				<%
+			}
 				%>
 			</tbody>
 		</table>
+		<input type="button" name="back" id="back" value="뒤로가기" onclick="location.href='_03_main.jsp'">
+        <input type="button" name="write" id="write" value="글쓰기" onclick="location.href='_06_boardWriterForm.jsp'">
 	</div>
 </body>
 </html>

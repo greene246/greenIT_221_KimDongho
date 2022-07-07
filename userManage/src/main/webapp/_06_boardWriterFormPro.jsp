@@ -15,15 +15,24 @@
 	
 	String title = request.getParameter("title");
 	String contents = request.getParameter("contents");
-	//int userCode = Integer.parseInt((String) session.getAttribute("log"));
+	int userCode = (int) session.getAttribute("log");
 	
-	BoardDTO board = new BoardDTO(title, contents);
+	BoardDTO board = new BoardDTO(title, contents, userCode);
 	
 	BoardDAO dao = BoardDAO.getInstance();
 	
 	String url = "";
 	
-	dao.addBoard(board);
+	if(dao.addBoard(board)){
+		// 작성이 됐다면
+		url = "_05_board.jsp";
+	}
+	else{
+		// 작성이 실패했다면
+		url = "_06_boardWriterForm.jsp";
+	}
+	
+	response.sendRedirect(url);
 	
 	%>
 </body>
