@@ -132,12 +132,8 @@ public class UserDAO {	// Data Access Object
 				int targetCode = Integer.parseInt(rs.getString(1));
 				String targetId = rs.getString(2);
 				String targetPw = rs.getString(3);
-				
-				if(targetId.equals(tempUser.getId()) && targetPw.equals(tempUser.getPw())) {
-					tempUser.setUserCode(targetCode);
-					user = tempUser;
-					return user;
-				}
+				tempUser.setUserCode(targetCode);
+				return tempUser;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,7 +145,7 @@ public class UserDAO {	// Data Access Object
 			} catch (Exception e2) {
 			}
 		}
-		return user;
+		return null;
 	}
 	
 	public boolean userDupl(UserDTO user) {

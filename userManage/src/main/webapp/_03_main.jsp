@@ -14,6 +14,8 @@
 <%
 Object log = session.getAttribute("log");
 
+out.print("로그값"+log);
+
 if(log == null){
 	response.sendRedirect("_00.index.jsp");
 }
