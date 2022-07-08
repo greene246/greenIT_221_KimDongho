@@ -15,7 +15,7 @@
 </head>
 <body>
     <h1>GREEN</h1>
-    <form method="post" action="_00_loginPro.jsp">
+    <form method="post" action="./login">
         <div class="container">
             <input type="text" name="id" id="id" placeholder="id"><br>
             <input type="password" name="pw" id="pw" placeholder="password"><br>
