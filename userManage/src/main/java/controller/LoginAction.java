@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import user.UserDAO;
 import user.UserDTO;
@@ -52,11 +53,13 @@ public class LoginAction extends HttpServlet {
 		String url = "";
 		if(dao.loginUser(user) != null){
 			// session.setAttribute("log", user.getUserCode());
-			request.getSession().setAttribute(id, url);
+			HttpSession session = request.getSession();
+			session.setAttribute("log", url);
 			// url = "_03_main.jsp";
 			url = "./main";
 		}
 		else{
+			System.out.println("로그인실패");
 			url = "_00_login.jsp";
 		}
 		request.getRequestDispatcher(url).forward(request, response);

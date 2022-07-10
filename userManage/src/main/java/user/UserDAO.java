@@ -118,25 +118,25 @@ public class UserDAO {	// Data Access Object
 	}
 	
 	public UserDTO loginUser(UserDTO tempUser) {
-		UserDTO user = null;
 		conn = DBManager.getConnection("firstJSP");
-		
+		System.out.println("로그인 유저 메소드 탔음");
 		try {
 			String sql = "select * from users where id = ? and password = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, tempUser.getId());
 			pstmt.setString(2, tempUser.getPw());
 			rs = pstmt.executeQuery();
+			System.out.println(tempUser.getId());
+			System.out.println("쿼리 가져옴");
 			
 			while(rs.next()){
 				int targetCode = Integer.parseInt(rs.getString(1));
-				String targetId = rs.getString(2);
-				String targetPw = rs.getString(3);
 				tempUser.setUserCode(targetCode);
 				return tempUser;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("연동실패");
 		} finally {
 			try {
 				conn.close();
